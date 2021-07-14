@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
-     # devise_for :customers
+  
+ 
+# デバイスのカスタマーのルーティング
+   devise_for :customers
      
 
-   # admin
-     namespace :admin do
+   # 管理者　admin
+     namespace :admin do 
+     # 管理者のセッション管理
+      devise_for :admins, class_name: "Admin::Admin"
       # 商品のルーティング
       resources :items, only: [:new, :create, :edit, :update, :index, :show]
      # 注文のルーティング
@@ -17,7 +22,7 @@ Rails.application.routes.draw do
      end
      
      
-   #customers
+   #顧客　customers
    
    # 商品のルーティング
      root to: 'items#top'
