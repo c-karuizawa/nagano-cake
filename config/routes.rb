@@ -33,6 +33,11 @@ Rails.application.routes.draw do
      post 'orders/confirm' => 'orders#confirm'
      get 'orders/done' => 'orders#done'
      
+     # 顧客情報
+     resources :customers, only: [:show, :edit, :update]
+     get 'customers/unsubscribe' => 'customers#unsubscribe'
+     patch 'customers/withdraw' => 'customers#withdraw'
+     
      # 配送先のルーティング
      resources :locations, only: [:index, :create, :edit ,:update, :destroy]
 end
