@@ -1,43 +1,86 @@
-<h1>会員情報編集</h1>
+<div class='container'>
+  <div class='row'>
+    <div class='col-sm-12 col-md-8 col-lg-5 px-sm-0, content'>
+    <span>　会員情報編集　</span>
+    <% if @customer.errors.any? %>
+      <div id="error explanation">
+        <h3><%= @customer.errors.count %> error prohibited this obj from being saved:</h3>
+          <ul>
+            <% @customer.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+      </div>
+    <% end %>
 
-<% if @customer.errors.any? %>
-  <div id="error explanation">
-    <h3><%= @customer.errors.count %> error prohibited this obj from being saved:</h3>
-      <ul>
-        <% @customer.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+    <%= form_with model: @customer, local: true do |f| %>
+      <table cellpadding="10">
+        <tr>
+          <!--nowrapは改行させないコマンド-->
+          <td nowrap>氏名</td>
+          <td></td>
+          <td><%= f.text_field :last_name %></t>
+          <td><%= f.text_field :first_name %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td nowrap>フリガナ</td>
+          <td></td>
+          <td><%= f.text_field :last_name_kana %></td>
+          <td><%= f.text_field :first_name_kana %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td nowrap>郵便番号</td>
+          <td></td>
+          <td><%= f.text_field :postal_code %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td nowrap>住所</td>
+          <td></td>
+          <td colspan="3"><%= f.text_field :address, :size=>"60" %></td>
+        </tr>
+        <tr>
+          <td nowrap>電話番号</td>
+          <td></td>
+          <td><%= f.text_field :phone_number %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td nowrap>メールアドレス</td>
+          <td></td>
+          <td><%= f.text_field :email %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><%= f.submit "　編集内容を保存　", class: "btn btn-success" %></td>
+          <td><%= f.submit "　退会する　", class: "btn btn-danger" %></td>
+          <td></td>
+        </tr>
+      </table>
+    <% end %>
+    </div>
   </div>
-<% end %>
+</div>
 
-<%= form_with model: @customer, local: true do |f| %>
-  <div>
-    <label for="customer-name">氏名</label>
-    <div><%= text.field :last_name %></div>
-    <div><%= text.field :first_name %></div>
-  </div>
-  <div>
-    <label for="customer-name-kana">フリガナ</label>
-    <div><%= text.field :last_name_kana %></div>
-    <div><%= text.field :first_name_kana %></div>
-  </div>
-  <div>
-    <label for="customer-postal-code">郵便番号</label>
-    <div><%= text.field :postal_code %></div>
-  </div>
-  <div>
-    <label for="customer-postal-code">住所</label>
-    <div><%= text.field :address %></div>
-  </div>
-  <div>
-    <label for="customer-postal-code">電話番号</label>
-    <div><%= text.field :phone_number %></div>
-  </div>
-    <div>
-    <label for="customer-postal-code">メールアドレス</label>
-    <div><%= text.field :email %></div>
-  </div>
-  <div><%= f.submit "編集内容を保存" %></div>
-  <div>退会する</div>
-<% end %>
+<style>
+  .content{
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+  span{
+    margin-left: 30px;
+    background-color: #EEEEEE;
+    font-size: 20px;
+    font-family: serif;
+  }
+  table{
+    margin-top: 20px;
+  }
+</style>
