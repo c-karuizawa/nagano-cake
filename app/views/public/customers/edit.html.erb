@@ -1,1 +1,43 @@
 <h1>会員情報編集</h1>
+
+<% if @customer.errors.any? %>
+  <div id="error explanation">
+    <h3><%= @customer.errors.count %> error prohibited this obj from being saved:</h3>
+      <ul>
+        <% @customer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @customer, local: true do |f| %>
+  <div>
+    <label for="customer-name">氏名</label>
+    <div><%= text.field :last_name %></div>
+    <div><%= text.field :first_name %></div>
+  </div>
+  <div>
+    <label for="customer-name-kana">フリガナ</label>
+    <div><%= text.field :last_name_kana %></div>
+    <div><%= text.field :first_name_kana %></div>
+  </div>
+  <div>
+    <label for="customer-postal-code">郵便番号</label>
+    <div><%= text.field :postal_code %></div>
+  </div>
+  <div>
+    <label for="customer-postal-code">住所</label>
+    <div><%= text.field :address %></div>
+  </div>
+  <div>
+    <label for="customer-postal-code">電話番号</label>
+    <div><%= text.field :phone_number %></div>
+  </div>
+    <div>
+    <label for="customer-postal-code">メールアドレス</label>
+    <div><%= text.field :email %></div>
+  </div>
+  <div><%= f.submit "編集内容を保存" %></div>
+  <div>退会する</div>
+<% end %>
