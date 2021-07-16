@@ -12,13 +12,13 @@
    <p class="col-sm-3">名前</p>
    <p class="col-sm-1 text-right">(姓)</p>
    <div class="field col-sm-4">
-    <%= f.text_field :last_name, autofocus: true %>
+    <%= f.text_field :last_name, autofocus: true, placeholder: "令和" %>
   </div>
   
     <p class="col-sm-1 text-right">(名)</p>
  
    <div class="field col-sm-3">
-    <%= f.text_field :first_name, autofocus: true %>
+    <%= f.text_field :first_name, autofocus: true, placeholder: "道子" %>
   </div>
   
   </div>
@@ -28,13 +28,13 @@
    
   <p class="col-sm-1 text-right">(セイ)</p>
    <div class="field col-sm-4">
-    <%= f.text_field :last_name_kana, autofocus: true %>
+    <%= f.text_field :last_name_kana, autofocus: true, placeholder: "レイワ" %>
   </div>
   
     <p class="col-sm-1 text-right">(メイ)</p>
   
    <div class="field col-sm-3">
-    <%= f.text_field :first_name_kana, autofocus: true %>
+    <%= f.text_field :first_name_kana, autofocus: true, placeholder: "ミチコ" %>
   </div>
   
   </div>
@@ -44,7 +44,7 @@
   
 
   <div class="field col-sm-8">
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@example.com" %>
   </div>
   
   </div>
@@ -53,7 +53,7 @@
    <p class="col">郵便番号(ハイフンなし)</p>
   
    <div class="field col-sm-8">
-    <%= f.text_field :postal_code, autofocus: true %>
+    <%= f.text_field :postal_code, autofocus: true, placeholder: "0000000" %>
   </div>
   
   </div>
@@ -63,7 +63,7 @@
   
   
    <div class="field col-sm-8">
-    <%= f.text_field :address, :size => "70*30", autofocus: true %>
+    <%= f.text_field :address, :size => "70*30", autofocus: true, placeholder: "東京都渋谷区代々木神園町0−0" %>
   </div>
   
   </div>
@@ -73,7 +73,7 @@
   
   
    <div class="field col-sm-8">
-    <%= f.text_field :phone_number, autofocus: true %>
+    <%= f.text_field :phone_number, autofocus: true, placeholder: "00000000000" %>
   </div>
   
   </div>
