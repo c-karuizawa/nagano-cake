@@ -25,6 +25,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def index
+    # １ぺーじ１０けんまでしか表示しません。
     @items=Item.page(params[:page]).per(10)
   end
 
@@ -34,7 +35,7 @@ class Admin::ItemsController < ApplicationController
   
   private
   def item_params
-    params.require(:item).permit(:image,:name,:introduction,:price)
+    params.require(:item).permit(:image,:name,:introduction,:price,:on_sale)
     # ジャンル、販売ステータスについては未設定です
   end
 

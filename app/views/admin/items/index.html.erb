@@ -18,17 +18,26 @@
     <tbody>
     <% @items.each do |item| %>
     <tr>
-      <th>商品ID</th>
+      <th><%= item.id %></th>
       <th><%= link_to admin_item_path(item),class:"btn-link" do %>
       <%= item.name %><% end %></th>
       <th><%= item.price %></th>
       <th>ジャンル</th>
-      <th>ステータス</th>
+      
+       <% if item.on_sale == true %>
+      <th>販売中</th>
+      <% elsif item.on_sale == false %>
+      <th>販売停止中</th>
+      <% else %>
+      <th>★</th>
+      <% end %>
+      
     </tr>
     <% end %>
    </tbody>
 </table>
 </div>
 </div>
-</div>
-<%= paginate @items %>
+ <div class="pagination pagination-sm justify-content-center">
+ <%= paginate @items %></div>
+ </div>
