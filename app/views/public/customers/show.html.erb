@@ -1,10 +1,10 @@
 <div class='container'>
   <div class='row'>
-    <div class='col-sm-12 col-md-8 col-lg-5 px-sm-0, content'>
+    <div class='col-md-12 col-lg-12 px-sm-0, content'>
     <span class="title">　マイページ　</span>
     <div class="subtitle"><br>登録情報　<%= link_to '　編集する　', edit_customer_path(@customer), class: "btn btn-success" %></div>
 
-    <table cellpadding="10" border="1" style="width: 150%;">
+    <table cellpadding="10" border="1">
       <!--colgroupはtdでcolspanを適用させるために記載-->
       <colgroup>
         <col style="width: 25%;">
@@ -64,6 +64,7 @@
     font-family: serif;
   }
   table{
+    width: 60%;
     margin-top: 20px;
   }
   .item{
