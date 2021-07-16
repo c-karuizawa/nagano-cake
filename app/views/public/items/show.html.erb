@@ -2,6 +2,22 @@
 <div class="row" style="margin-top:40px;">
 <%= render 'genrelist' %>
 
-<div class="col-9">
+<!--商品画像をcol-4に入れる-->
+    <div class="col-4">
+    <%= attachment_image_tag @item, :image, format: 'jpeg', fallback: "no_image.jpg",size:"300x300" %>
+    </div>
+<!--商品画像をcol-６に入れる-->   
+    <div class="col-6">
+    <h4 class="head-line"><%=@item.name %></h4>
+    <p><%= @item.introduction %></p>
+    <p><%= @item.price * 1.08%>円（税込）</p>
+
+    <p>個数選択</p><p class="btn btn-success">カートに入れる</p>
+    </div>
+      
+        
+    </div>
+    
+    
 </div>
-<div></div>
+<div>
