@@ -15,53 +15,52 @@
 
     <%= form_with model: @customer, local: true do |f| %>
       <table cellpadding="10">
+        <!--colgroupはtdでcolspanを適用させるために記載-->
+        <colgroup>
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+        </colgroup>
         <tr>
-          <!--nowrapは改行させないコマンド-->
-          <td nowrap>氏名</td>
-          <td></td>
+          <td>氏名</td>
           <td><%= f.text_field :last_name %></t>
           <td><%= f.text_field :first_name %></td>
           <td></td>
         </tr>
         <tr>
-          <td nowrap>フリガナ</td>
-          <td></td>
+          <td>フリガナ</td>
           <td><%= f.text_field :last_name_kana %></td>
           <td><%= f.text_field :first_name_kana %></td>
           <td></td>
         </tr>
         <tr>
-          <td nowrap>郵便番号</td>
-          <td></td>
+          <td>郵便番号</td>
           <td><%= f.text_field :postal_code %></td>
           <td></td>
           <td></td>
         </tr>
         <tr>
-          <td nowrap>住所</td>
-          <td></td>
-          <td colspan="3"><%= f.text_field :address, :size=>"60" %></td>
+          <td>住所</td>
+          <td colspan="3"><%= f.text_field :address, :size=>"70" %></td>
         </tr>
         <tr>
-          <td nowrap>電話番号</td>
-          <td></td>
+          <td>電話番号</td>
           <td><%= f.text_field :phone_number %></td>
           <td></td>
           <td></td>
         </tr>
         <tr>
-          <td nowrap>メールアドレス</td>
-          <td></td>
+          <td>メールアドレス</td>
           <td><%= f.text_field :email %></td>
           <td></td>
           <td></td>
         </tr>
         <tr>
           <td></td>
+          <td><%= f.submit "　　編集内容を保存　　", class: "btn btn-success" %></td>
           <td></td>
-          <td><%= f.submit "　編集内容を保存　", class: "btn btn-success" %></td>
-          <td><%= f.submit "　退会する　", class: "btn btn-danger" %></td>
-          <td></td>
+          <td><%= link_to "　退会する　", confirm_unsubscribe_path(@customer), class: "btn btn-danger" %></td>
         </tr>
       </table>
     <% end %>
@@ -71,8 +70,8 @@
 
 <style>
   .content{
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
   span{
     margin-left: 30px;
@@ -82,5 +81,6 @@
   }
   table{
     margin-top: 20px;
+    width: 180%;
   }
 </style>

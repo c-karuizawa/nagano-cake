@@ -41,8 +41,9 @@ Rails.application.routes.draw do
 
      # 顧客情報
      resources :customers, only: [:show, :edit, :update]
-     get 'customers/unsubscribe' => 'customers#unsubscribe'
-     patch 'customers/withdraw' => 'customers#withdraw'
+     get 'customers/unsubscribe/:id' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
+     patch ':id/customers/withdraw/:id' => 'customers#withdraw', as: 'withdraw_customer'
+     put 'customers/withdraw/:id' => 'customers#withdraw'
 
      # 配送先のルーティング
      resources :locations, only: [:index, :create, :edit ,:update, :destroy]
