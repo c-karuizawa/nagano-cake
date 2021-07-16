@@ -1,64 +1,116 @@
-<h2>Sign up</h2>
+  <div class="container">
+    <h3 class="m-5">
+    <span class="bg-light">　新規会員登録　</span>
+    </h3>
 
 <%= form_with model: @customer, url: customer_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
   
-   <div class="field">
-    <%= f.label :last_name %><br />
+
+   
+   <div class="row">
+   <p class="col-sm-3">名前</p>
+   <p class="col-sm-1 text-right">(姓)</p>
+   <div class="field col-sm-4">
     <%= f.text_field :last_name, autofocus: true %>
   </div>
   
-   <div class="field">
-    <%= f.label :first_name %><br />
+    <p class="col-sm-1 text-right">(名)</p>
+ 
+   <div class="field col-sm-3">
     <%= f.text_field :first_name, autofocus: true %>
   </div>
   
-   <div class="field">
-    <%= f.label :last_name_kana %><br />
+  </div>
+  
+  <div class="row">
+   <p class="col-sm-3">フリガナ</p>
+   
+  <p class="col-sm-1 text-right">(セイ)</p>
+   <div class="field col-sm-4">
     <%= f.text_field :last_name_kana, autofocus: true %>
   </div>
   
-   <div class="field">
-    <%= f.label :first_name_kana %><br />
+    <p class="col-sm-1 text-right">(メイ)</p>
+  
+   <div class="field col-sm-3">
     <%= f.text_field :first_name_kana, autofocus: true %>
   </div>
+  
+  </div>
+  
+  <div class="row">
+   <p class="col">メールアドレス</p>
+  
 
-  <div class="field">
-    <%= f.label :email %><br />
+  <div class="field col-sm-8">
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
   
-   <div class="field">
-    <%= f.label :postal_code %><br />
+  </div>
+  
+   <div class="row">
+   <p class="col">郵便番号(ハイフンなし)</p>
+  
+   <div class="field col-sm-8">
     <%= f.text_field :postal_code, autofocus: true %>
   </div>
   
-   <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address, autofocus: true %>
   </div>
   
-   <div class="field">
-    <%= f.label :phone_number %><br />
+   <div class="row">
+   <p class="col">住所</p>
+  
+  
+   <div class="field col-sm-8">
+    <%= f.text_field :address, :size => "70*30", autofocus: true %>
+  </div>
+  
+  </div>
+  
+   <div class="row">
+   <p class="col">電話番号(ハイフンなし)</p>
+  
+  
+   <div class="field col-sm-8">
     <%= f.text_field :phone_number, autofocus: true %>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
+  
+  </div>
+  
+   <div class="row">
+   <p class="col">パスワード(６文字以上)</p>
+  
+  <div class="field col-sm-8">
     <%= f.password_field :password, autocomplete: "new-password" %>
   </div>
+  
+  </div>
+  
+   <div class="row">
+   <p class="col">パスワード(確認用)</p>
+  
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
+  <div class="field col-sm-8">
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+  
+  </div>
+  
+  <div class="row mt-2">
+   <p class="col"></p>
+  <div class="actions col-sm-8">
+    <%= f.submit "　　新規登録　　", class: "btn btn-success" %>
+  </div>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+   <h3 class="ml-5 mt-5 mb-4">
+    <span class="bg-light">　既に登録済みの方　</span>
+    </h3>
+   <div class="row">
+   <p class="col-sm-2"></p>
+   <p class="col">
+    <%= link_to "こちら",new_customer_session_path, class: "border-bottom" %>　　からログインしてください。
+   </p>
+   </div>
+  </div>
