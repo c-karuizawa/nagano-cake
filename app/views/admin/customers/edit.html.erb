@@ -65,8 +65,10 @@
         <tr>
           <td>会員ステータス</td>
           <td>
-            <input type="radio" name="is_active" value="true">有効
-            <input type="radio" name="is_active" value="false">退会
+            <%= f.radio_button :is_active, :true, checked: true %>
+            <%= f.label :is_active, "有効", {value: :true} %>
+            <%= f.radio_button :is_active, :false %>
+            <%= f.label :is_active, "退会", {value: :false} %>
           </td>
           <td></td>
           <td></td>

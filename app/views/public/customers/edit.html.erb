@@ -1,11 +1,11 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-12 col-lg-12 px-sm-0, content'>
-    <span>　会員情報編集　</span>
+
     <% if @customer.errors.any? %>
       <div id="error explanation">
-        <h3><%= @customer.errors.count %> error prohibited this obj from being saved:</h3>
-          <ul>
+        <h3 style="color: red;"><%= @customer.errors.count %> error prohibited this obj from being saved:</h3>
+          <ul style="color: red;">
             <% @customer.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
@@ -13,6 +13,7 @@
       </div>
     <% end %>
 
+    <span>　会員情報編集　</span>
     <%= form_with model: @customer, local: true do |f| %>
       <table cellpadding="10">
         <!--colgroupはtdでcolspanを適用させるために記載-->
