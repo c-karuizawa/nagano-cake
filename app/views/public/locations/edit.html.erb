@@ -1,6 +1,18 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-12 col-lg-12 px-sm-0, content'>
+    
+    <% if @location.errors.any? %>
+      <div id="error explanation">
+        <h3 style="color: red;"><%= @location.errors.count %> error prohibited this obj from being saved:</h3>
+          <ul style="color: red;">
+            <% @location.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+      </div>
+    <% end %>
+    
     <span>　配送先編集　</span>
     <%= form_with model: @location, url: locations_path, local: true do |f| %>
       <table cellpadding="10" class="table1">

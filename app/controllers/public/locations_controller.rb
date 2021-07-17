@@ -27,7 +27,7 @@ class Public::LocationsController < ApplicationController
     if @location.update(location_params)
       redirect_to locations_path(customer)
     else
-      redirect_to locations_path(customer)
+      render 'edit'
     end
   end
 
