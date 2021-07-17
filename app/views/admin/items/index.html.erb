@@ -25,11 +25,9 @@
       <th>ジャンル</th>
       
        <% if item.on_sale == true %>
-      <th>販売中</th>
-      <% elsif item.on_sale == false %>
-      <th>販売停止中</th>
+      <th style="color:green;">販売中</th>
       <% else %>
-      <th>★</th>
+      <th style="color:grey;">販売停止中</th>
       <% end %>
       
     </tr>

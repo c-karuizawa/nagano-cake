@@ -10,9 +10,16 @@
     <div class="col-6">
     <h4 class="head-line"><%=@item.name %></h4>
     <p><%= @item.introduction %></p>
+    
     <p><%= @item.taxin_price.round.to_s(:delimited) %>円（税込）</p>
-
-    <p>個数選択</p><p class="btn btn-success">カートに入れる</p>
+    
+    <p>個数選択</p>
+    
+    <% if @item.on_sale == true %>
+    <p class="btn btn-success">カートに入れる</p>
+    <% else %>
+    <p class="soldout" style="color:red; font-size:20px;">SOLD OUT</p>
+    <% end %>
     </div>
       
         
