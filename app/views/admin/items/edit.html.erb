@@ -1,7 +1,10 @@
 <div class="container">
 <h2 class="head-line">商品編集</h2>
+<!--エラーメッセージ-->
+<%= render 'layouts/errors', obj: @item %>
 <div class='row'>
 <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+
 
 <%= form_with model:@item,url:admin_item_path(@item.id), local: true do |f| %>
 
@@ -11,8 +14,10 @@
 <%= f.attachment_field :image,class:"col-sm-9" %></div>
   
  <%= render "form", f: f %>
-  
-  <%= f.submit '変更を保存' ,class: 'btn btn-success'%>
+
+<div class="form-group text-center mx-auto" style="margin-top:10px;">  
+<%= f.submit '変更を保存' ,class: 'btn btn-success'%></div>
+
 <% end %>
 </div>
 </div>

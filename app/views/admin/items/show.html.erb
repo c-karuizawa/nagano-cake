@@ -1,7 +1,14 @@
 <div class="container">
+ 
+ <!--登録、更新完了　フラッシュメッセージ-->
+<% if flash[:notice] %>
+ <div class="alert alert-success" role="alert">
+ <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p></div>
+<% end %>
+
 <h2 class="head-line">商品詳細</h2>
 <div class="row">
- <div class="col-md-4">
+<div class="col-md-4">
  <%= attachment_image_tag @item, :image, format: 'jpeg', fallback: "no_image.jpg",size:"300x300" %>
  </div>
  <div class="col-md-6">
