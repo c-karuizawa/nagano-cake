@@ -1,5 +1,14 @@
 <div class="container">
     
+<!--エラーメッセージ　マージ前なのでコメントアウト-->
+<!--%= render 'layouts/errors', obj: @genre %>-->
+ <!--登録、更新完了　フラッシュメッセージ-->
+<% if flash[:notice] %>
+ <div class="alert alert-success" role="alert">
+ <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p></div>
+<% end %>
+    
+    
 <div class="head-line" style="margin-bottom:60px;">
 <h2 class="head-line">ジャンル一覧・追加</h2></div>
 
