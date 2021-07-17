@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  
 # デバイスのカスタマーのルーティング
    devise_for :customers
 
@@ -8,7 +9,7 @@ Rails.application.routes.draw do
    # 管理者　admin
      namespace :admin do
      # 管理者のセッション管理
-      devise_for :admins, class_name: "Admin::Admin"
+     devise_for :admins, skip: [:confirmations, :passwords, :registrations, :unlocks]
       # 商品のルーティング
       resources :items, only: [:new, :create, :edit, :update, :index, :show]
      # 注文のルーティング

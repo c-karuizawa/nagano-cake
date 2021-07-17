@@ -2,6 +2,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   # デバイスコントローラーを使うときは、ストロングパラメーターの部分の受け渡しを行う許可を出す
   before_action :configure_permitted_parameters, if: :devise_controller?
+  
+  # ログイン後の遷移先の指定
+  def after_sign_in_path_for(resource)
+    case resource
+    when Admin
+      admin_orders_path
+    when Customer
+      root_path
+    end
+  end
 
   protected
   
