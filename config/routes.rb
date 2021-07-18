@@ -47,6 +47,14 @@ Rails.application.routes.draw do
      patch 'customers/withdraw' => 'customers#withdraw'
 
      # 配送先のルーティング
-     resources :locations, only: [:index, :create, :edit ,:update, :destroy]
+     # 実装確認のために下記一時変更
+     # resources :locations, only: [:index, :create, :edit ,:update, :destroy]
+     get 'customers/:id/locations' => 'locations#index', as: 'locations'
+     post 'customers/:id/locations' => 'locations#create'
+     get 'customers/:id/locations/:id/edit' => 'locations#edit', as: 'edit_locations'
+     patch 'customers/:id/locations' => 'locations#update'
+     put 'customers/:id/locations/:id' => 'locations#update'
+     delete 'customers/:id/locations' => 'locations#destroy'
+
    end
 end
