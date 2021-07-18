@@ -11,7 +11,8 @@ class Item < ApplicationRecord
     
     validates :name,:introduction,:price,presence:true
     validates :introduction, length: {maximum: 250}
-    validates :price,numericality:true
+    # 数値のみしか受け入れません！！
+    validates :price, numericality: { only_integer: true }
     
 
     
