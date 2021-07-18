@@ -41,7 +41,8 @@ Rails.application.routes.draw do
      get 'orders/done' => 'orders#done'
 
      # 顧客情報
-     resources :customers, only: [:show, :edit, :update]
+     resources :customers, only: [:edit, :update]
+     get 'customers/my_page' => 'customers#show'
      get 'customers/unsubscribe' => 'customers#unsubscribe'
      patch 'customers/withdraw' => 'customers#withdraw'
 

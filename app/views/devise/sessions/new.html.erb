@@ -9,7 +9,7 @@
     </p>
     </div>
 <%= form_with model: @customer, url: customer_session_path, local: true do |f| %>
-
+<%= render "devise/shared/error_messages", resource: resource %>
 <div class="row">
   <p class="col-sm-2"></p>
   <p class="col-sm-2">メールアドレス</p>
