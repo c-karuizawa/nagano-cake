@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  
 # デバイスのカスタマーのルーティング
    devise_for :customers
 
@@ -8,7 +9,7 @@ Rails.application.routes.draw do
    # 管理者　admin
      namespace :admin do
      # 管理者のセッション管理
-      devise_for :admins, class_name: "Admin::Admin"
+     devise_for :admins, skip: [:confirmations, :passwords, :registrations, :unlocks]
       # 商品のルーティング
       resources :items, only: [:new, :create, :edit, :update, :index, :show]
      # 注文のルーティング
@@ -40,10 +41,10 @@ Rails.application.routes.draw do
      get 'orders/done' => 'orders#done'
 
      # 顧客情報
-     resources :customers, only: [:show, :edit, :update]
-     get 'customers/unsubscribe/:id' => 'customers#unsubscribe', as: 'confirm_unsubscribe'
-     patch ':id/customers/withdraw/:id' => 'customers#withdraw', as: 'withdraw_customer'
-     put 'customers/withdraw/:id' => 'customers#withdraw'
+     resources :customers, only: [:edit, :update]
+     get 'customers/my_page' => 'customers#show'
+     get 'customers/unsubscribe' => 'customers#unsubscribe'
+     patch 'customers/withdraw' => 'customers#withdraw'
 
      # 配送先のルーティング
      # 実装確認のために下記一時変更
