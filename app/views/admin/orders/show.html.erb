@@ -1,1 +1,68 @@
-<h1>注文履歴詳細</h1>
+<div class="container">
+     <h2 class="head-line">注文履歴詳細</h2>
+     <div class="row">
+         <p class="col-md-2">購入者<p>
+         <p class="col-md-10"><%= @order.customers.name %></p>
+     </div>
+     
+     <div class="row">
+         <p class="col-md-2">注文日<p>
+         <p class="col-md-10"><%= @order.created_at %></p>
+     </div>
+
+     <div class="row">
+         <p class="col-md-2">配送先<p>
+         <p class="col-md-10"><%= @order.address %></p>
+     </div>
+
+     <div class="row">
+         <p class="col-md-2"><p>
+         <p class="col-md-10"><%= @order.name %></p>
+     </div>
+
+     <div class="row">
+         <p class="col-md-2">支払い方法<p>
+         <p class="col-md-10"><%= @order.payment %></p>
+     </div>
+
+     <div class="row">
+         <p class="col-md-2">注文ステータス<p>
+         <%%>
+         <p class="col-md-10">
+             <%= @order.order_status %>
+         </p>
+         <% end %>
+     </div>
+     <div class="row">
+         <div class="col-md-8">
+              <table class="table table-striped table-hover">
+                 <thead>
+                       <tr>
+                         <th>商品名</th>
+                         <th>単価(税込)</th>
+                         <th>数量</th>
+                         <th>小計</th>
+                         <th>制作ステータス</th>
+                      </tr>
+                 </thead>
+                 <tbody>
+                      <% @order_items.each do |order_item| %>
+                       <tr>
+                         <td><%= order_item.items.name %></td>
+                         <td><%= order_item.taxin_price %></td>
+                         <td><%= order_item.quantity %></td>
+                         <!--小計を呼び出すコード-->
+                         <td>
+                             <%= order_item.subtotal %>
+                         </td>
+                         <td><%= order_item.product_status %></td>
+                      </tr>
+                      <% end %>
+                 </tbody>
+              </table>
+         </div>
+         <div class="col-md-4">
+             
+         </div>
+     </div>
+</div>
