@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
 
 
-  
-# デバイスのカスタマーのルーティング
-   devise_for :customers
-
-
    # 管理者　admin
      namespace :admin do
      # 管理者のセッション管理
@@ -41,20 +36,27 @@ Rails.application.routes.draw do
      get 'orders/done' => 'orders#done'
 
      # 顧客情報
-     resources :customers, only: [:edit, :update]
      get 'customers/my_page' => 'customers#show'
+     get 'customers/edit' => 'customers#edit'
+     patch 'customers/edit' => 'customers#update'
      get 'customers/unsubscribe' => 'customers#unsubscribe'
      patch 'customers/withdraw' => 'customers#withdraw'
 
+     # デバイスのカスタマーのルーティング
+     devise_for :customers, controllers: {
+         sessions: 'public/sessions',
+         registrations: 'public/registrations'
+       }
+
      # 配送先のルーティング
-     # 実装確認のために下記一時変更
-     # resources :locations, only: [:index, :create, :edit ,:update, :destroy]
-     get 'customers/:id/locations' => 'locations#index', as: 'locations'
-     post 'customers/:id/locations' => 'locations#create'
-     get 'customers/:id/locations/:id/edit' => 'locations#edit', as: 'edit_locations'
-     patch 'customers/:id/locations' => 'locations#update'
-     put 'customers/:id/locations/:id' => 'locations#update'
-     delete 'customers/:id/locations' => 'locations#destroy'
+     get 'customers/locations' => 'locations#index', as: 'locations'
+     post 'customers/locations' => 'locations#create'
+     get 'customers/locations/:id/edit' => 'locations#edit', as: 'edit_locations'
+     patch 'customers/locations/:id/edit' => 'locations#update'
+     delete 'customers/locations/:id' => 'locations#destroy', as: 'destroy_locations'
 
    end
+
+
+
 end

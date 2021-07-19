@@ -1,12 +1,12 @@
 class Public::LocationsController < ApplicationController
   def index
-    @customer = Customer.find(params[:id])
+    @customer = current_customer
     @locations = @customer.locations
     @location_new = Location.new
   end
 
   def create
-    @customer = Customer.find(params[:id])
+    @customer = current_customer
     @location_new = Location.new(location_params)
     @location_new.customer_id = @customer.id
     if @location_new.save
@@ -23,9 +23,8 @@ class Public::LocationsController < ApplicationController
 
   def update
     @location = Location.find(params[:id])
-    customer = @location.customer
     if @location.update(location_params)
-      redirect_to locations_path(customer)
+      redirect_to locations_path
     else
       render 'edit'
     end
