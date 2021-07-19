@@ -1,5 +1,8 @@
 class Public::OrdersController < ApplicationController
   def new
+    @order = Order.new
+    @customer = current_customer
+    @locations = @customer.locations
   end
 
   def confirm
@@ -17,5 +20,3 @@ class Public::OrdersController < ApplicationController
   def show
   end
 end
-
-test
