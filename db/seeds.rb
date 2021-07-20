@@ -25,19 +25,19 @@ Customer.create!(
   
 Order.create!(
      customer_id: 1,
-     total_price: 7,
+     total_price: 900,
      payment: 0,
      order_status: 0,
-     postage: 100,
-     name: "aa",
-     postal_code: "00",
+     postage: 800,
+     name: "aa333",
+     postal_code: "3333333",
      address: "qqq",
  )
  
  OrderItem.create!(
       item_id: 1,
       order_id: 1,
-      quantity: 1,
+      quantity: 2,
       product_status: 0,
       taxin_price: 100
       )
