@@ -2,10 +2,11 @@
   <div class='row'>
     <div class='col-md-12 col-lg-12 px-sm-0, content'>
     <span>　注文履歴詳細　</span>
-    <% @orders.each do |order| %>
+    <% @order.each do |order| %>
 
-      <div style="margin-top: 30px;">
-        <table cellpadding="10" border="1">
+      <div style="margin-top: 30px; width: 80%;">
+        <table cellpadding="10" border="1" align="left">
+          <caption>注文情報</caption>
           <!--colgroupはtdでcolspanを適用させるために記載-->
           <colgroup>
             <col style="width: 20%;">
@@ -13,11 +14,11 @@
           </colgroup>
           <tr style="background-color: #EEEEEE;">
             <th colspan="1">注文日</th>
-            <td colspan="4"><%= order.created_at %></th>
+            <td colspan="4"><%= order.created_at.strftime('%Y/%m/%d') %></th>
           </tr>
           <tr>
             <th colspan="1">配送先</td>
-            <td colspan="4"><%= order.postal_code %><%= order.address %><%= order.name %></td>
+            <td colspan="4">〒<%= order.postal_code %><br><%= order.address %><br><%= order.name %></td>
           </tr>
           <tr>
             <th>支払方法</th>
@@ -29,27 +30,31 @@
           </tr>
         </table>
 
-        <table>
+        <table cellpadding="10" border="1" align="right">
+          <caption>請求情報</caption>
           <colgroup>
             <col style="width: 50%;">
             <col style="width: 50%;">
           </colgroup>
           <tr>
-            <th colspan="1">商品合計</th>
+            <th colspan="1" style="background-color: #EEEEEE;">商品合計</th>
             <td colspan="1"><%= '#' %></td>
           </tr>
           <tr>
-            <th colspan="1">配送料</th>
+            <th colspan="1" style="background-color: #EEEEEE;">配送料</th>
             <td colspan="1"><%= order.postage %></td>
           </tr>
           <tr>
-            <th colspan="1">ご請求額</th>
-            <td colspan="1"><%= order.total_price%></td>
+            <th colspan="1" style="background-color: #EEEEEE;">ご請求額</th>
+            <td colspan="1"><%= order.total_price %></td>
           </tr>
         </table>
       </div>
-      <div>
+
+      <div style="clear: both;">
+        <br>
         <table cellpadding="10" border="1">
+          <caption>注文内容</caption>
           <colgroup>
             <col style="width: 10%;">
             <col style="width: 10%;">
@@ -63,7 +68,7 @@
             <col style="width: 10%;">
           </colgroup>
           <thead>
-            <tr>
+            <tr style="background-color: #EEEEEE;">
               <th colspan="6">商品</th>
               <th colspan="2">単価（税込）</th>
               <th colspan="1">個数</th>
@@ -92,13 +97,14 @@
     padding-top: 30px;
     padding-bottom: 30px;
   }
-
   span{
     margin-left: 30px;
     background-color: #EEEEEE;
     font-size: 20px;
     font-family: serif;
   }
-  table{
+  caption{
+    caption-side: top;
+    color: black;
   }
 </style>

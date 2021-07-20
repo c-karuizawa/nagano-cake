@@ -53,8 +53,9 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-    @customer = current_customer
-    @orders = @customer.orders
+    customer = current_customer
+    orders = customer.orders
+    @order = orders.where(id: params[:id])
   end
 
   private

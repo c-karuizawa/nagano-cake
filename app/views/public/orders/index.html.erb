@@ -1,7 +1,7 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-12 col-lg-12 px-sm-0, content'>
-      <table cellpadding="10" border="1">
+      <table cellpadding="5" border="1">
       <span>　注文履歴一覧　</span>
       <!--colgroupはtdでcolspanを適用させるために記載-->
       <colgroup>
@@ -29,12 +29,12 @@
       <tbody>
         <% @orders.each do |order| %>
         <tr>
-          <td colspan="1"><%= order.created_at %></td>
-          <td colspan="5"><%= order.postal_code %><%= order.address %><%= order.name %></td>
-          <td colspan="1"><%#= order.items %></td>
+          <td colspan="1"><%= order.created_at.strftime('%Y/%m/%d') %></td>
+          <td colspan="5">〒<%= order.postal_code %><br><%= order.address %><br><%= order.name %></td>
+          <td colspan="1"><%= '#' %></td>
           <td colspan="1"><%= order.total_price %></td>
           <td colspan="1"><%= order.order_status %></td>
-          <td colspan="1"><%= link_to '表示する', '#', class: "btn btn-primary" %></td>
+          <td colspan="1"><%= link_to '表示する', order_path(order), class: "btn btn-primary order_#{order.id}" %></td>
         </tr>
         <% end %>
       </tbody>
