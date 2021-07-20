@@ -1,7 +1,7 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-12 col-lg-12 px-sm-0, content'>
-    <span>　注文情報確認　</span>
+    <span class="title">　注文情報確認　</span>
 
     <div style="width: 85%; margin-top: 20px;">
       <table cellpadding="10" border="1" align="left">
@@ -44,27 +44,39 @@
         </tr>
         <tr>
           <td class="item">商品合計　</td>
-          <td><%#= @cart_items.quantity %></td>
+          <td>
+            <% @sum = 0 %>
+            <% @cart_items.each do |item| %>
+              <% @sum += item.item.price * item.quantity %>
+            <% end %>
+            <%= @sum %>
+          </td>
         </tr>
         <tr>
           <td class="item">請求金額</td>
-          <td><%#= @cart_items.price %></td>
+          <td><%= @sum + @order.postage %></td>
         </tr>
       </table>
     </div>
 
     <div style="clear: both;">
-      <div class="subtitle">支払い方法</div>
+      <span class="subtitle">支払い方法</span>&emsp;
       <%= @order.payment %>
     </div>
     <br>
     <div>
-      <div class="subtitle">お届け先</div>
-      <%= @order.postal_code %><%= @order.address %><%= @order.name %>
+      <span class="subtitle">お届け先</span>&emsp;&emsp;
+      <span>〒<%= @order.postal_code %>&emsp;<%= @order.address %></span><br><span style="margin-left: 120px;"><%= @order.name %></span>
     </div>
     <br>
     <div align="center">
       <%= form_with model: @order, url: orders_done_path, method: :post, local: true do |f| %>
+        <%= f.hidden_field :payment %>
+        <%= f.hidden_field :postal_code %>
+        <%= f.hidden_field :address %>
+        <%= f.hidden_field :total_price %>
+        <%= f.hidden_field :name %>
+        <%= f.hidden_field :customer_id %>
         <%= f.submit '注文を確定する', class: "btn btn-success" %>
       <% end %>
     </div>
@@ -77,13 +89,12 @@
     padding-top: 30px;
     padding-bottom: 30px;
   }
-  span{
+  .title{
     margin-left: 30px;
     background-color: #EEEEEE;
     font-size: 20px;
     font-family: serif;
   }
-
   .item{
     background-color: #EEEEEE;
   }

@@ -33,7 +33,7 @@ Rails.application.routes.draw do
      # 注文のルーティング
      resources :orders, only: [:new, :create, :index, :show]
      post 'orders/confirm' => 'orders#confirm'
-     get 'orders/done' => 'orders#done'
+     post 'orders/done' => 'orders#done'
 
      # 顧客情報
      get 'customers/my_page' => 'customers#show'
