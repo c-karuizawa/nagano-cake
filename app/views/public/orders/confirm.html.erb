@@ -1,1 +1,94 @@
-<h1>注文情報確認</h1>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12 px-sm-0, content'>
+    <span>　注文情報確認　</span>
+
+    <div style="width: 85%; margin-top: 20px;">
+      <table cellpadding="10" border="1" align="left">
+        <!--colgroupはtdでcolspanを適用させるために記載-->
+        <colgroup>
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+        </colgroup>
+        <tr class="item">
+          <td colspan="4">商品名</td>
+          <td colspan="2">単価（税込）　</td>
+          <td colspan="2">数量</td>
+          <td colspan="2">小計</td>
+        </tr>
+        <% @cart_items.each do |item| %>
+        <tr>
+          <td colspan="4"><%= item.item.name %></td>
+          <td colspan="2"><%= item.item.price %></td>
+          <td colspan="2"><%= item.quantity %></td>
+          <td colspan="2"><%= item.item.price * item.quantity %></td>
+        </tr>
+        <% end %>
+      </table>
+      <table cellpadding="10" border="1" align="right">
+        <colgroup>
+          <col style="width: 50%;">
+          <col style="width: 50%;">
+        </colgroup>
+        <tr>
+          <td class="item">送料</td>
+          <td><%= @order.postage %></td>
+        </tr>
+        <tr>
+          <td class="item">商品合計　</td>
+          <td><%#= @cart_items.quantity %></td>
+        </tr>
+        <tr>
+          <td class="item">請求金額</td>
+          <td><%#= @cart_items.price %></td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="clear: both;">
+      <div class="subtitle">支払い方法</div>
+      <%= @order.payment %>
+    </div>
+    <br>
+    <div>
+      <div class="subtitle">お届け先</div>
+      <%= @order.postal_code %><%= @order.address %><%= @order.name %>
+    </div>
+    <br>
+    <div align="center">
+      <%= form_with model: @order, url: orders_done_path, method: :post, local: true do |f| %>
+        <%= f.submit '注文を確定する', class: "btn btn-success" %>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content{
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  span{
+    margin-left: 30px;
+    background-color: #EEEEEE;
+    font-size: 20px;
+    font-family: serif;
+  }
+
+  .item{
+    background-color: #EEEEEE;
+  }
+  .subtitle{
+    font-size: 20px;
+    font-family: serif;
+  }
+</style>
