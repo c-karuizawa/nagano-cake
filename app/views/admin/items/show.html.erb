@@ -12,25 +12,25 @@
  <%= attachment_image_tag @item, :image, format: 'jpeg', fallback: "no_image.jpg",size:"300x300" %>
  </div>
  <div class="col-md-6">
- <table>
+ <table class="table table-borderless">
   <tr>
    <td>商品名</td>
-   <td></td>
+  
    <td><%=@item.name %></td>
 　</tr>
  <tr>
   <td>商品説明</td>
-  <td></td>
-  <td><%= @item.introduction %></td>
+ <!--safe-join splitで改行で入力したものが改行で出力されます。-->
+  <td><%=safe_join(@item.introduction.split("\n"),tag(:br)) %></td>
    </tr>
    <tr>
     <td>ジャンル</td>
-    <td></td>
+    
     <td><%= @item.genre.name %></td>
    </tr>
    <tr>
     <td>税込価格</td>
-    <td></td>
+   
      <!--.roundeで四捨五入。to_sで文字列に、:del~で３桁区切りの表示になる-->
      <!--税額についてはモデルファイルで定義しています。-->
     <td><strong><%= @item.taxin_price.round.to_s(:delimited) %>
@@ -39,11 +39,11 @@
    <tr>
     <% if @item.on_sale == true %>
     <td>販売ステータス</td>
-    <td></td>
+  
     <td style="color:green;">販売中</td>
     <% elsif @item.on_sale == false %>
     <td>販売ステータス</td>
-    <td></td>
+   
     <td style="color:gray;">販売停止中</td>
     <% end %>
    </tr>
