@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
     else
       root_path
     end
+    # ログアウトの際はwhenが使えない。おそらくrailsがそういう仕様とのこと
     # case resource
     # when Admin
     #   new_admin_admin_session_path
