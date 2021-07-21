@@ -14,7 +14,7 @@
     <% end %>
 
     <span>　配送先登録／一覧　</span>
-      <%= form_with model: @location_new, local: true do |f| %>
+      <%= form_with model: @location_new, url: locations_path, local: true do |f| %>
       <table cellpadding="10" class="table1">
         <!--colgroupはtdでcolspanを適用させるために記載-->
         <colgroup>
@@ -74,7 +74,7 @@
           <td colspan="2"><%= location.name %></td>
           <td colspan="2" align="center">
             <%= link_to '編集する', edit_locations_path(location), class: "btn btn-sm btn-success edit_location_#{location.id}" %>
-            <%= link_to '削除する', locations_path(location), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_location_#{location.id}" %>
+            <%= link_to '削除する', destroy_locations_path(location), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_location_#{location.id}" %>
           </td>
         </tr>
         <% end %>

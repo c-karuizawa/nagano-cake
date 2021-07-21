@@ -1,1 +1,87 @@
-<h1>注文情報入力</h1>
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12 px-sm-0, content'>
+
+    <% if @order.errors.any? %>
+      <div id="error explanation">
+        <h3 style="color: red;"><%= @order.errors.count %> error prohibited this obj from being saved:</h3>
+          <ul style="color: red;">
+            <% @order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+      </div>
+    <% end %>
+
+    <span>　注文情報入力　</span>
+    <%= form_with  model: @order, url: orders_confirm_path, method: :post, local: true do |f| %>
+      <h6 style="font-weight: bold;">支払方法</h6>
+        <div>
+          <%= f.radio_button :payment, :"クレジットカード" %>
+          <%= f.label :card, "クレジットカード" %>
+        </div>
+        <div>
+          <%= f.radio_button :payment, :"銀行振込" %>
+          <%= f.label :bank, "銀行振込" %>
+        </div>
+
+
+      <h6 style="font-weight: bold;">お届け先</h6>
+        <div>
+          <%= radio_button_tag :locate, "0" %>
+          <%= f.label :locate, "ご自身の住所", value: "0" %>
+          <!--&emsp;は空白の役割-->
+          <div style="margin-left: 30px;">〒<%= @customer.postal_code %>&emsp;<%= @customer.address %><br><%= @customer.last_name %><%= @customer.first_name %></div>
+        </div>
+        <br>
+
+        <% if @locations.present? %>
+          <div>
+            <%= radio_button_tag :locate, "1" %>
+            <%= f.label :locate, "登録済住所から選択", value: "1" %>
+            <br>
+            <!--address_and_nameはlocation.rbで定義-->
+            <div style="margin-left: 30px;"><%= f.collection_select :locate_id , @locations, :id, :address_and_name, :include_blank => "選択してください" %></div>
+          </div>
+        <br>
+        <% end %>
+
+        <div>
+          <%= radio_button_tag :locate, "2" %>
+          <%= f.label :locate, "新しいお届け先", value: "2" %>
+            <table cellpadding="10" style="margin-left: 30px;">
+              <tr>
+                <td>郵便番号（ハイフンなし）</th>
+                <td><%= f.text_field :postal_code, :size => "30" %></td>
+              </tr>
+              <tr>
+                <td>住所</th>
+                <td><%= f.text_field :address, :size=>"60" %></td>
+              </tr>
+              <tr>
+                <td>宛名</th>
+                <td><%= f.text_field :name,:size=>"30" %></td>
+              </tr>
+            </table>
+        </div>
+        <div align="center"><%= f.submit '確認画面へ進む', class: "btn btn-primary" %></div>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content{
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  span{
+    margin-left: 30px;
+    background-color: #EEEEEE;
+    font-size: 20px;
+    font-family: serif;
+  }
+  h6{
+    margin-top: 20px;
+  }
+</style>
