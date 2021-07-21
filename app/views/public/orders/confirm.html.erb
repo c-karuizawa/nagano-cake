@@ -1,8 +1,10 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-12 col-lg-12 px-sm-0, content'>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger"><%= alert %></div>
+    <% end %>
     <span class="title">　注文情報確認　</span>
-
     <div style="width: 85%; margin-top: 20px;">
       <table cellpadding="10" border="1" align="left">
         <!--colgroupはtdでcolspanを適用させるために記載-->
@@ -71,7 +73,7 @@
     <br>
     <div align="center">
       <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
-        <%= f.submit '注文を確定する', class: "btn btn-success" %>
+        <%= f.submit '注文を確定する', class: "btn btn-outline-success" %>
       <% end %>
     </div>
     </div>
@@ -81,7 +83,7 @@
 <style>
   .content{
     padding-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 160px;
   }
   .title{
     margin-left: 30px;
