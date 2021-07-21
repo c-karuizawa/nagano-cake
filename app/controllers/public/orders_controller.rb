@@ -19,9 +19,13 @@ class Public::OrdersController < ApplicationController
       session[:order][:address] = @customer.address
       session[:order][:name] = @customer.last_name + @customer.first_name
       session[:order][:customer_id] = current_customer.id
+      # @cart_items.each do |item|
+      #   @sum += (item.item.price * item.quantity)
+      # end
+      # session[:order][:total_price] = @sum + @order.postage
+
       # カート関連未実装のため一時的に記載
       session[:order][:total_price] = "1000"
-
     elsif params[:locate] == "1"
       location = @locations.find(params[:order][:locate_id])
       session[:order][:postal_code] = location.postal_code
@@ -30,7 +34,6 @@ class Public::OrdersController < ApplicationController
       session[:order][:customer_id] = current_customer.id
       # カート関連未実装のため一時的に記載
       session[:order][:total_price] = "1000"
-
     elsif params[:locate] == "2"
       @order = Order.new(@attr)
       session[:order][:customer_id] = current_customer.id
@@ -44,6 +47,14 @@ class Public::OrdersController < ApplicationController
 
   def done
     Order.create!(session[:order])
+    # @cart_items = current_customer.cart_items
+    # @cart_items.each do |cart|
+    #   OrderItem.create!(order: session[:order],
+    #                     item_id: cart.item_id,
+    #                     quantity: cart.quantity,
+    #                     taxin_price: cart.item.taxin_price
+    #                   )
+    # end
     session.delete(:order)
   end
 

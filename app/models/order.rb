@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :customer, optional: true
+  has_many :order_items
 
   # enum payment: { card: 0, bank: 1 }
   # enum order_status: { waiting: 0, confirmed: 1, making: 2, preparing: 3, shipped: 4 }
