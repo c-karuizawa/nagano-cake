@@ -26,5 +26,8 @@ class Item < ApplicationRecord
         price*1.1
     end
 
-    has_many :cart_items
+    def self.search_for(content)
+        Item.where('name LIKE ?', '%'+content+'%')
+    end
+        
 end
