@@ -11,21 +11,42 @@
 <div class="col-md-4">
  <%= attachment_image_tag @item, :image, format: 'jpeg', fallback: "no_image.jpg",size:"300x300" %>
  </div>
- <div class="col-md-6">
-  
- <p>商品名　　　　　　<%=@item.name %></p>
- <p>商品説明　　　　　<%= @item.introduction %></p>
- <p>ジャンル　　　　　ジャンル</p>
- <!--.roundeで四捨五入。to_sで文字列に、:del~で３桁区切りの表示になる-->
- <!--税額についてはモデルファイルで定義しています。-->
- <p>税込価格　　　　　<strong><%= @item.taxin_price.round.to_s(:delimited) %>
- (<%=@item.price.to_s(:delimited)%>)円</strong><br>(税抜価格)</p>
  
- <% if @item.on_sale == true %>
- <p>販売ステータス　　販売中</p>
- <% elsif @item.on_sale == false %>
- <p>販売ステータス　　販売停止中</p>
- <% end %>
+ 
+ <div class="col-md-6">
+ <table class="table table-borderless">
+    <tr>
+     <td>商品名</td>
+     <td><%=@item.name %></td>
+    </tr>
+    <tr>
+     <td>商品説明</td>
+   <!--safe-join splitで改行で入力したものが改行で出力されます。-->
+     <td><%=safe_join(@item.introduction.split("\n"),tag(:br)) %></td>
+    </tr>
+    <tr>
+     <td>ジャンル</td>
+     <td><%= @item.genre.name %></td>
+    </tr>
+    <tr>
+     <td>税込価格</td>
+     
+       <!--.roundeで四捨五入。to_sで文字列に、:del~で３桁区切りの表示になる-->
+       <!--税額についてはモデルファイルで定義しています。-->
+     <td><strong><%= @item.taxin_price.round.to_s(:delimited) %>
+       (<%=@item.price.to_s(:delimited)%>)円</strong><br>(税抜価格)</td>
+    </tr>
+    <tr>
+     <% if @item.on_sale == true %>
+     <td>販売ステータス</td>
+     <td style="color:green;">販売中</td>
+     <% elsif @item.on_sale == false %>
+     <td>販売ステータス</td>
+     <td style="color:gray;">販売停止中</td>
+     <% end %>
+    </tr>
+ </table>
+ 
  
  <div class="text-center">
  <%= link_to "　編集する　", edit_admin_item_path(@item),class:"btn btn-success"%></div>

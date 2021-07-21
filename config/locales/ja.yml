@@ -2,8 +2,8 @@ ja:
   enums:
     order:
       payment:
-        card: "カード払い"
-        bank: "銀行払い"
+        card: "クレジットカード"
+        bank: "銀行振込"
         order_status:
         wait: "入金待ち"
         payment: "入金確認"
@@ -19,3 +19,4 @@ ja:
         make_wait: "制作待ち"
         make: "製作中"
         finish: "制作完了"
+

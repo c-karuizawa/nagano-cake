@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
       customers_my_page_path
     end
   end
+
   # ログアウト後の遷移先の指定
   # def after_sign_out_path_for(resource)
   #   case resource
@@ -22,10 +23,17 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+  
+  
+
+
+
   protected
   
   # サインインの際に登録する必要なデータの受け渡しを記述する
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name, :last_name_kana, :first_name_kana, :postal_code, :address, :phone_number])
   end
+  
+  
 end

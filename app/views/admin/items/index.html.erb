@@ -1,6 +1,7 @@
 <div class="container">
 
 <h2 class="head-line">商品一覧</h2>
+<p class="text-right"><%= link_to "","items/new",class:"fas fa-plus-circle fa-2x"%></p>
 <div class="row　justify-content-md-center">
 <div>
   
@@ -22,7 +23,7 @@
       <th><%= link_to admin_item_path(item),class:"btn-link" do %>
       <%= item.name %><% end %></th>
       <th><%= item.price %></th>
-      <th>ジャンル</th>
+      <th><%= item.genre.name %></th>
       
        <% if item.on_sale == true %>
       <th style="color:green;">販売中</th>

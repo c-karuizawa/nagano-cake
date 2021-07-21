@@ -1,4 +1,5 @@
 class OrderItem < ApplicationRecord
+
  
    belongs_to :item
    belongs_to :order
@@ -10,4 +11,5 @@ class OrderItem < ApplicationRecord
 		taxin_price * quantity
    end
    
+
 end
