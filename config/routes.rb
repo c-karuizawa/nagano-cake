@@ -16,6 +16,8 @@ Rails.application.routes.draw do
       resources :customers, only: [:index, :show, :edit, :update]
      # ジャンル
       resources :genres, only: [:index, :create, :edit, :update]
+     #検索機能 
+     get '/search', to: 'searches#search'
      end
 
 
