@@ -27,7 +27,7 @@ class Item < ApplicationRecord
     end
 
     def self.search_for(content)
-        Item.where('name LIKE ?', '%'+content+'%').or(Item.where(genre_id: value))
+        Item.where('name LIKE ?', '%'+content+'%')
     end
         
     def self.search_for(value)
