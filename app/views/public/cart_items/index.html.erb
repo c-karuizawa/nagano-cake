@@ -1,1 +1,82 @@
-<h1>ショッピングカート</h1>
+<div class="container">
+
+<% if flash[:notice] %>
+ <div class="alert alert-success" role="alert">
+ <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p></div>
+<% end %>
+
+<div classs="row">
+<div class="col-3"><h4>ショッピングカート</h4></div>
+<% if @cart_items.present? %>
+<div class="text-right"><%= link_to "　カートを空にする　", all_destroy_path,method: :delete,class:"btn btn-outline-danger"%></div>
+
+
+<table class="table table-borderd table-hovor">
+    <thead class="table-warning">
+      <tr>
+        <th>商品名</th>
+        <th>単価（税込）</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th></th>
+      </tr>
+    </thead>
+　　
+　　<tbody>
+    <% @cart_items.each do |cart_item| %>
+   <tr>
+       <th><%= link_to item_path(cart_item.item.id) do %>
+       <%= attachment_image_tag cart_item.item, :image, format: 'jpeg', fallback: "no_image.jpg",size:"50x50" %>
+        <%= cart_item.item.name %><%end%></th>
+       <th><%= cart_item.item.taxin_price.round.to_s(:delimited) %></th>
+       <th>
+           <!--methodをpostにすると、どんどん数が足されていきますので注意！！-->
+           <%= form_with model:@cart_item,url:cart_item_path(cart_item),method: :patch,local:true do |f| %>
+           <%= f.hidden_field :item_id, value: cart_item.item.id %>
+           <%= f.number_field :quantity,value: cart_item.quantity,id:"number"%>
+           <%= f.submit "更新", class: "" %><% end %></th>
+       <!--<th>%= cart_item.item.taxin_price.round.to_s(:delimited) %></th>-->
+       <th><%= cart_item.sum_of_price.round.to_s(:delimited) %></th>
+       <th><%= link_to "　削除する　", cart_item_path(cart_item),method: :delete,class:"btn btn-outline-danger"%>
+            <%end%></th>
+   </tr>
+   </tbody>
+   </table>
+    
+    <div class="row" style="margin-top:50px;">
+    <div class="col-xs-1 offset-1">
+        <%= link_to "買い物を続ける","items",class:"btn btn-outline-primary"%></div>
+        
+        
+    <div class="col-xs-2 offset-7">
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item active">合計金額</li>
+            <li class="list-group-item"><strong>¥<%= @total.round.to_s(:delimited)%></strong></li>
+        </ul>
+    <!--<table class="table table-borderd text-right　justify-content-end">-->
+    <!--    <thead>-->
+    <!--        <tr><td class="table-warning">合計金額</td>-->
+    <!--            <td>%= @total.round.to_s(:delimited)%> </td>-->
+    <!--            </tr>-->
+    <!--    </thead>-->
+    <!--</table>-->
+    </div>
+    </div>
+  
+    <div class="text-center mx-auto" style="margin:40px 0;">
+    <%= link_to "情報入力に進む","items",class:"btn btn-outline-success"%>
+    </div>
+ 
+ 
+  <% else %>
+   <p>カートに商品はありません。<br>個数を選択し商品をカートに入れてください。</p><%= link_to "商品を選ぶ","items",class:"btn btn-primary"%>
+   <% end %>
+
+
+</div>
+
+
+<style>
+#number {
+  width: 3em;
+}

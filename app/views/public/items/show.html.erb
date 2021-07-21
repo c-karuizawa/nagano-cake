@@ -1,5 +1,20 @@
 <div class="container">
+
+<% if flash[ :alert] %>
+ <div class="alert alert-danger" role="alert">
+ <p class="notice text-center" style="color:red;"><%= flash[:alert] %></p></div>
+<% end %>
+
+
 <div class="row" style="margin-top:40px;">
+    
+
+    
+
+
+
+
+
 <%= render 'genrelist' %>
 
 <!--商品画像をcol-4に入れる-->
@@ -13,14 +28,24 @@
     
     <p><%= @item.taxin_price.round.to_s(:delimited) %>円（税込）</p>
     
-    <p>個数選択</p>
     
-    <% if @item.on_sale == true %>
-    <p class="btn btn-success">カートに入れる</p>
-    <% else %>
-    <p class="soldout" style="color:red; font-size:20px;">SOLD OUT</p>
-    <% end %>
-    </div>
+        <% if @item.on_sale == false %>
+         <p class="soldout" style="color:red; font-size:20px;">SOLD OUT</p>
+         <% else %>
+            <% if customer_signed_in? %>
+        <!--個数のカラムはカーとアイテムなので@carr_item-->
+        <%= form_with model:@cart_item,url:cart_items_path,method: :post,local:true do |f| %>
+        <!--[1..10]でも良いのかな-->
+        <!--個数をデータベースに保存するときにitem_idもいるので、hidden_fieldでidも取得します-->
+        <%= f.hidden_field :item_id, value: @item.id %>
+        <%= f.hidden_field :customer_id, :value => current_customer.id %>
+        <p><%= f.select :quantity,[1,2,3,4,5,6,7,8,9,10],{include_blank: '個数選択'},required:true%></p>
+        <%= f.submit '  カートに入れる   ' ,class: 'btn btn-success'%><% end %>
+            <% else %>
+                <p style="color:green;"><strong>販売中<br>注文にはログインが必要です。</strong></p>
+            <% end %>
+        <% end %>
+        </div>
       
         
     </div>
