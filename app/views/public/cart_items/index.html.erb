@@ -33,8 +33,8 @@
            <!--methodをpostにすると、どんどん数が足されていきますので注意！！-->
            <%= form_with model:@cart_item,url:cart_item_path(cart_item),method: :patch,local:true do |f| %>
            <%= f.hidden_field :item_id, value: cart_item.item.id %>
-           <%= f.number_field :quantity,value: cart_item.quantity,id:"number"%>
-           <%= f.submit "更新", class: "" %><% end %></th>
+           <%= f.number_field :quantity,value: cart_item.quantity,id:"number",min:"1"%>
+           <%= f.submit "変更", class: "btn btn-sm btn-success" %><% end %></th>
        <!--<th>%= cart_item.item.taxin_price.round.to_s(:delimited) %></th>-->
        <th><%= cart_item.sum_of_price.round.to_s(:delimited) %></th>
        <th><%= link_to "　削除する　", cart_item_path(cart_item),method: :delete,class:"btn btn-outline-danger"%>
@@ -45,7 +45,7 @@
     
     <div class="row" style="margin-top:50px;">
     <div class="col-xs-1 offset-1">
-        <%= link_to "買い物を続ける","items",class:"btn btn-outline-primary"%></div>
+        <%= link_to "買い物を続ける","/",class:"btn btn-outline-primary"%></div>
         
         
     <div class="col-xs-2 offset-7">
@@ -53,18 +53,12 @@
             <li class="list-group-item active">合計金額</li>
             <li class="list-group-item"><strong>¥<%= @total.round.to_s(:delimited)%></strong></li>
         </ul>
-    <!--<table class="table table-borderd text-right　justify-content-end">-->
-    <!--    <thead>-->
-    <!--        <tr><td class="table-warning">合計金額</td>-->
-    <!--            <td>%= @total.round.to_s(:delimited)%> </td>-->
-    <!--            </tr>-->
-    <!--    </thead>-->
-    <!--</table>-->
+ 
     </div>
     </div>
   
     <div class="text-center mx-auto" style="margin:40px 0;">
-    <%= link_to "情報入力に進む","items",class:"btn btn-outline-success"%>
+    <%= link_to "情報入力に進む","orders/new",class:"btn btn-outline-success"%>
     </div>
  
  

@@ -1,20 +1,7 @@
 <div class="container">
 
-<% if flash[ :alert] %>
- <div class="alert alert-danger" role="alert">
- <p class="notice text-center" style="color:red;"><%= flash[:alert] %></p></div>
-<% end %>
-
-
 <div class="row" style="margin-top:40px;">
     
-
-    
-
-
-
-
-
 <%= render 'genrelist' %>
 
 <!--商品画像をcol-4に入れる-->
@@ -24,9 +11,10 @@
 <!--商品画像をcol-６に入れる-->   
     <div class="col-6">
     <h4 class="head-line"><%=@item.name %></h4>
-    <p><%= @item.introduction %></p>
     
-    <p><%= @item.taxin_price.round.to_s(:delimited) %>円（税込）</p>
+    <p><%=safe_join(@item.introduction.split("\n"),tag(:br)) %></p>
+    
+    <p style="font-size:20px;"><strong><%= @item.taxin_price.round.to_s(:delimited) %>円（税込）</strong></p>
     
     
         <% if @item.on_sale == false %>
@@ -39,15 +27,13 @@
         <!--個数をデータベースに保存するときにitem_idもいるので、hidden_fieldでidも取得します-->
         <%= f.hidden_field :item_id, value: @item.id %>
         <%= f.hidden_field :customer_id, :value => current_customer.id %>
-        <p><%= f.select :quantity,[1,2,3,4,5,6,7,8,9,10],{include_blank: '個数選択'},required:true%></p>
-        <%= f.submit '  カートに入れる   ' ,class: 'btn btn-success'%><% end %>
+        <%= f.select :quantity,[1,2,3,4,5,6,7,8,9,10],{include_blank: '個数選択'},required:true%>&emsp;
+        <%= f.submit 'カートに入れる' ,class: 'btn btn-success btn-sm'%><% end %>
             <% else %>
                 <p style="color:green;"><strong>販売中<br>注文にはログインが必要です。</strong></p>
             <% end %>
         <% end %>
         </div>
-      
-        
     </div>
     
     
