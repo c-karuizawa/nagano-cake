@@ -3,11 +3,13 @@ class Item < ApplicationRecord
     # データベース保存時に、税抜価格と税込価格を登録します。
 
     attachment :image
+
     belongs_to:genre
     has_many:order_items
     has_many:cart_items
 
     has_many:orders,through: :order_items
+
     
     
     # has_many:orders,through: :order_items
