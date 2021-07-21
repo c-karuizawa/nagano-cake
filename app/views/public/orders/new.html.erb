@@ -17,11 +17,11 @@
     <%= form_with  model: @order, url: orders_confirm_path, method: :post, local: true do |f| %>
       <h6 style="font-weight: bold;">支払方法</h6>
         <div>
-          <%= f.radio_button :payment, :"クレジットカード" %>
+          <%= f.radio_button :payment, :card %>
           <%= f.label :card, "クレジットカード" %>
         </div>
         <div>
-          <%= f.radio_button :payment, :"銀行振込" %>
+          <%= f.radio_button :payment, :bank %>
           <%= f.label :bank, "銀行振込" %>
         </div>
 
