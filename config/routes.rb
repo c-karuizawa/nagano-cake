@@ -31,9 +31,12 @@ Rails.application.routes.draw do
      delete '/all_destroy' => 'cart_items#all_destroy'
 
      # 注文のルーティング
-     resources :orders, only: [:new, :create, :index, :show]
+     resources :orders, only: [:new]
      post 'orders/confirm' => 'orders#confirm'
-     post 'orders/done' => 'orders#done'
+     post 'orders' => 'orders#create'
+     get 'orders' => 'orders#index'
+     get 'order/:id' => 'orders#show', as: 'show_order'
+     get 'orders/done' => 'orders#done'
 
      # 顧客情報
      get 'customers/my_page' => 'customers#show'

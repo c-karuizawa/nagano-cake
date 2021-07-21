@@ -9,64 +9,69 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-    @customer = current_customer
-    @cart_items = @customer.cart_items
-    @locations = @customer.locations
+    customer = current_customer
+    @cart_items = customer.cart_items
+    @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
+    @locations = customer.locations
     @order = Order.new(@attr)
     session[:order] = @order
     if params[:locate] == "0"
-      session[:order][:postal_code] = @customer.postal_code
-      session[:order][:address] = @customer.address
-      session[:order][:name] = @customer.last_name + @customer.first_name
-      session[:order][:customer_id] = current_customer.id
-      # @cart_items.each do |item|
-      #   @sum += (item.item.price * item.quantity)
-      # end
-      # session[:order][:total_price] = @sum + @order.postage
-
-      # カート関連未実装のため一時的に記載
-      session[:order][:total_price] = "1000"
+      session[:order][:postal_code] = customer.postal_code
+      session[:order][:address] = customer.address
+      session[:order][:name] = customer.last_name + customer.first_name
+      session[:order][:customer_id] = customer.id
+      session[:order][:total_price] = @total + @order.postage
     elsif params[:locate] == "1"
       location = @locations.find(params[:order][:locate_id])
       session[:order][:postal_code] = location.postal_code
       session[:order][:address] = location.address
       session[:order][:name] = location.name
-      session[:order][:customer_id] = current_customer.id
-      # カート関連未実装のため一時的に記載
-      session[:order][:total_price] = "1000"
+      session[:order][:customer_id] = customer.id
+      session[:order][:total_price] = @total + @order.postage
     elsif params[:locate] == "2"
       @order = Order.new(@attr)
-      session[:order][:customer_id] = current_customer.id
-      # カート関連未実装のため一時的に記載
-      session[:order][:total_price] = "1000"
+      session[:order][:customer_id] = customer.id
+      session[:order][:total_price] = @total + @order.postage
     end
   end
 
   def create
+    order = Order.new(session[:order])
+    order.save
+    @cart_items = current_customer.cart_items.all
+    puts "-----------------------"
+    p order
+    puts "-----------------------"
+    @cart_items.each do |cart_item|
+      OrderItem.create!(order_id: order.id,
+                        item_id: cart_item.item_id,
+                        quantity: cart_item.quantity,
+                        taxin_price: cart_item.item.taxin_price
+                      )
+    end
+    session.delete(:order)
+    @cart_items.destroy_all
+    redirect_to orders_done_path
   end
 
   def done
-    Order.create!(session[:order])
-    # @cart_items = current_customer.cart_items
-    # @cart_items.each do |cart|
-    #   OrderItem.create!(order: session[:order],
-    #                     item_id: cart.item_id,
-    #                     quantity: cart.quantity,
-    #                     taxin_price: cart.item.taxin_price
-    #                   )
-    # end
-    session.delete(:order)
   end
 
   def index
-    @customer = current_customer
-    @orders = @customer.orders
+    customer = current_customer
+    @orders = customer.orders
   end
 
   def show
     customer = current_customer
     orders = customer.orders
-    @order = orders.where(id: params[:id])
+    @order = orders.find(params[:id])
+
+    order_items = @order.order_items
+    @total = order_items.inject(0) { |sum, item| sum + item.sum_of_price }
+
+    # @total = order_items.inject(0) { |sum, item| sum + item.sum_of_price }
+
   end
 
   private

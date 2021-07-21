@@ -24,12 +24,15 @@
           <td colspan="2">数量</td>
           <td colspan="2">小計</td>
         </tr>
-        <% @cart_items.each do |item| %>
+        <% @cart_items.each do |cart_item| %>
         <tr>
-          <td colspan="4"><%= item.item.name %></td>
-          <td colspan="2"><%= item.item.price %></td>
-          <td colspan="2"><%= item.quantity %></td>
-          <td colspan="2"><%= item.item.price * item.quantity %></td>
+          <td colspan="4">
+              <%= attachment_image_tag cart_item.item, :image, format: 'jpeg', fallback: "no_image.jpg",size:"50x50" %>
+              &emsp;<%= cart_item.item.name %>
+          </td>
+          <td colspan="2"><%= cart_item.item.taxin_price.round.to_s(:delimited) %></td>
+          <td colspan="2"><%= cart_item.quantity %></td>
+          <td colspan="2"><%= cart_item.sum_of_price.round.to_s(:delimited) %></td>
         </tr>
         <% end %>
       </table>
@@ -45,21 +48,18 @@
         <tr>
           <td class="item">商品合計　</td>
           <td>
-            <% @sum = 0 %>
-            <% @cart_items.each do |item| %>
-              <% @sum += item.item.price * item.quantity %>
-            <% end %>
-            <%= @sum %>
+            <%= @total.round.to_s(:delimited) %>
           </td>
         </tr>
         <tr>
           <td class="item">請求金額</td>
-          <td><%= @sum + @order.postage %></td>
+          <td><%= (@total + @order.postage).round.to_s(:delimited) %></td>
         </tr>
       </table>
     </div>
 
     <div style="clear: both;">
+    <br>
       <span class="subtitle">支払い方法</span>&emsp;
       <%= @order.payment %>
     </div>
@@ -70,7 +70,7 @@
     </div>
     <br>
     <div align="center">
-      <%= form_with model: @order, url: orders_done_path, method: :post, local: true do |f| %>
+      <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
         <%= f.submit '注文を確定する', class: "btn btn-success" %>
       <% end %>
     </div>
