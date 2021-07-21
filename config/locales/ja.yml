@@ -4,13 +4,13 @@ ja:
       payment:
         card: "カード払い"
         bank: "銀行払い"
-      order_status:
+        order_status:
         wait: "入金待ち"
         payment: "入金確認"
         make: "製作中"
         preparing: "発送準備中"
         done: "発送済み"
-
+        
 ja:
   enums:
     order_item:

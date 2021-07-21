@@ -1,5 +1,9 @@
 <div class="container">
-    <div>
+    <% if flash[:notice] %>
+     <div class="alert alert-success" role="alert">
+       <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p>
+     </div>
+      <% end %>
       <h3 class="mt-5 mb-3">
        <span class="bg-light">　注文履歴一覧　</span>
       </h3>
@@ -31,7 +35,6 @@
           </tbody>
         </table>
       </div>
-    </div>
 </div>
 <div class="pagination pagination-sm justify-content-center mb-5">
     <%= paginate @orders %></div>

@@ -29,7 +29,7 @@
 
      <div class="row">
          <p class="col-md-2">支払い方法</p>
-         <p class="col-md-10"><%= @order.payment %></p>
+         <p class="col-md-10"><%= @order.payment_i18n %></p>
      </div>
 
      <div class="row">
@@ -65,7 +65,8 @@
                          </td>
                          <td>
                              <%= form_with url:admin_order_item_path(order_item.id), method: :patch, local: true do | f | %> 
-                                 <%= f.select :product_status, options_for_select_from_enum(OrderItem, :product_status) %>
+                                 <%#= f.select :product_status, options_for_select_from_enum(OrderItem, :product_status) %>
+                                 <%= f.select :product_status, OrderItem.product_statuses.keys.map {|k| [I18n.t("enums.order_item.product_status.#{k}"), k]} %>
                                  <%= f.submit '更新',class: 'btn btn-success ml-2' %>
                              <% end %>
                          </td>

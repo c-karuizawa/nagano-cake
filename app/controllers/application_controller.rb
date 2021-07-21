@@ -12,6 +12,15 @@ class ApplicationController < ActionController::Base
       customers_my_page_path
     end
   end
+  # ログアウト後の遷移先の指定
+  # def after_sign_out_path_for(resource)
+  #   case resource
+  #   when Admin
+  #     new_admin_admin_session_path
+  #   when Customer
+  #     root_path
+  #   end
+  # end
 
   protected
   
