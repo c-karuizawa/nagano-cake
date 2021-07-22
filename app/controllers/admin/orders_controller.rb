@@ -14,7 +14,7 @@ class Admin::OrdersController < ApplicationController
     @order.update(order_params)
     #   注文ステータスと制作ステータスの紐付け
      # paramsのデータを取得する記述(enumの場合は文字列で出力される)
-    # p params[:order][:order_status]
+    # p params[:order][:order_status]　エラー文も出ずわからない際にpで定義を行うとターミナルに出力される
     if params[:order][:order_status] == "payment"
       @order.order_items.update(product_status: "make_wait")
     end
