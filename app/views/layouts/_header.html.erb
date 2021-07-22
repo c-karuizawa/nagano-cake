@@ -32,10 +32,9 @@
 
           <%= render 'layouts/admin_search' %>
 
-	        <input type="text" class="form-control" placeholder="Search">
-		      <button type="button" class="btn btn-default fas fa-search"></button>
 
           </div></li>
+          
         <!--ログインしてない-->
         <% else %>
           <li class="nav-item"><%= link_to "About", about_path,class:'nav-link btn btn-outline-danger'%></li>
