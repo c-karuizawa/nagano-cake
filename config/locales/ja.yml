@@ -1,6 +1,22 @@
 ja:
-  enums:              #enum型に対する日本語定義であることを明示するために記述
-    order:           #モデル名を指定
-      payment:           #カラム名を指定
-        card: "クレジットカード"     #Enumの名前定義①
-        bank: "銀行振込"   #Enumの名前定義②
+    enums:
+        order:
+            payment:
+                card: "クレジットカード"
+                bank: "銀行振込"
+            order_status:
+                wait: "入金待ち"
+                payment: "入金確認"
+                make: "製作中"
+                preparing: "発送準備中"
+                done: "発送済み"
+        
+ja:
+    enums:
+        order_item:
+            product_status:
+                can_not: "着手不可"
+                make_wait: "制作待ち"
+                make: "製作中"
+                finish: "制作完了"
+
