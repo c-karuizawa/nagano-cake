@@ -35,7 +35,7 @@
      <div class="row">
          <p class="col-md-2">注文ステータス</p>
          <div class="col-md-10">
-             <%= form_with url:admin_order_path(@order.id), method: :patch, local: true do | f | %> 
+             <%= form_with model: @order, url:admin_order_path(@order.id), method: :patch, local: true do | f | %> 
                  <%= f.select :order_status, options_for_select_from_enum(Order, :order_status) %>
                  <%= f.submit '更新',class: 'btn btn-success ml-4' %>
              <% end %>
@@ -64,7 +64,7 @@
                              <%= order_item.subtotal.to_s(:delimited) %>
                          </td>
                          <td>
-                             <%= form_with url:admin_order_item_path(order_item.id), method: :patch, local: true do | f | %> 
+                             <%= form_with model: order_item, url:admin_order_item_path(order_item.id), method: :patch, local: true do | f | %> 
                                  <%#= f.select :product_status, options_for_select_from_enum(OrderItem, :product_status) %>
                                  <%= f.select :product_status, OrderItem.product_statuses.keys.map {|k| [I18n.t("enums.order_item.product_status.#{k}"), k]} %>
                                  <%= f.submit '更新',class: 'btn btn-success ml-2' %>

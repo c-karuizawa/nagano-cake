@@ -11,13 +11,10 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.update(order_params)
     #   注文ステータスと制作ステータスの紐付け
-    # if order_status == 1
-    #   @order.order_item.product_status.update(1)
-    # elsif order_status == 2
-    #   @order.order_item.product_status.update(2)
-    # elsif order_status == 3
-    #   @order.order_item.product_status.update(3)
-    # end
+    if params[:order][:order_status] == 1
+      @order.order_item.update(product_status: 1)
+    end
+    redirect_to admin_order_path(@order.id)
   end
   
   private
