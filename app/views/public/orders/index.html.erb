@@ -33,7 +33,7 @@
           <td colspan="4">〒<%= order.postal_code %><br><%= order.address %><br><%= order.name %></td>
           <td colspan="2"><% order.order_items.each do |o| %><%= o.item.name %><br><% end %></td>
           <td colspan="1"><%= order.total_price.to_s(:delimited) %></td>
-          <td colspan="1"><%= order.order_status %></td>
+          <td colspan="1"><%= order.order_status_i18n %></td>
           <td colspan="1" align="center"><%= link_to '表示する', show_order_path(order), class: "btn btn-outline-primary order_#{order.id}" %></td>
         </tr>
         <% end %>
