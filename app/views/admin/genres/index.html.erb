@@ -1,0 +1,45 @@
+<div class="container">
+    
+<!--エラーメッセージ　マージ前なのでコメントアウト-->
+
+ <!--登録、更新完了　フラッシュメッセージ-->
+<% if flash[:notice] %>
+ <div class="alert alert-success" role="alert">
+ <p class="notice text-center" style="color:green;"><%= flash[:notice] %></p></div>
+<% end %>
+    
+    
+<div class="head-line" style="margin-bottom:60px;">
+<h2 class="head-line">ジャンル一覧・追加</h2></div>
+
+<!--ジャンルの新規登録、編集の共有部は部分テンプレです-->
+<%= form_with model:@genre,url:admin_genres_path,local:true do |f| %>
+<%= render "form", f: f %>
+ <%= f.submit "　新規登録　" ,class:"btn btn-success offset-1 pl-20"%>
+</div>
+<!--このdiv閉じは部分テンプレの続きです。-->
+<% end %>
+
+<div class="col-md-5" style="margin-top:60px;">
+    <table class="table table-hover">
+        <thead class="table-secondary">
+            <tr>
+                <th> ジャンル</th>
+                <th></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+        <% @genres.each do |genre| %>
+        <tr>
+            <th><%=genre.name%></th>
+            <th class="text-right"><%= link_to "編集する",edit_admin_genre_path(genre),class:"btn btn-success"%></th>
+        </tr>
+        <% end %>
+        </tbody>
+    </table>
+</div>
+
+
+</div>
+</div>

@@ -1,0 +1,104 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12 px-sm-0, content'>
+
+    <% if @customer.errors.any? %>
+      <div id="error explanation">
+        <h3 style="color: red;"><%= @customer.errors.count %> error prohibited this obj from being saved:</h3>
+          <ul style="color: red;">
+            <% @customer.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+      </div>
+    <% end %>
+
+    <span>　会員情報編集　</span>
+    <%= form_with model: @customer, url: admin_customer_path(@customer), local: true do |f| %>
+      <table cellpadding="10">
+        <!--colgroupはtdでcolspanを適用させるために記載-->
+        <colgroup>
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+        </colgroup>
+        <tr>
+          <td>会員ID</td>
+          <td><%= @customer.id %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>氏名</td>
+          <td><%= f.text_field :last_name %></t>
+          <td><%= f.text_field :first_name %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>フリガナ</td>
+          <td><%= f.text_field :last_name_kana %></td>
+          <td><%= f.text_field :first_name_kana %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>郵便番号</td>
+          <td><%= f.text_field :postal_code %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>住所</td>
+          <td colspan="3"><%= f.text_field :address, :size=>"70" %></td>
+        </tr>
+        <tr>
+          <td>電話番号</td>
+          <td><%= f.text_field :phone_number %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>メールアドレス</td>
+          <td><%= f.text_field :email %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>会員ステータス</td>
+          <td>
+            <%= f.radio_button :is_active, :true, checked: true %>
+            <%= f.label :is_active, "有効", {value: :true} %>
+            <%= f.radio_button :is_active, :false %>
+            <%= f.label :is_active, "退会", {value: :false} %>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><%= f.submit "　変更を保存　", class: "btn btn-success" %></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content{
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  span{
+    margin-left: 30px;
+    background-color: #EEEEEE;
+    font-size: 20px;
+    font-family: serif;
+  }
+  table{
+    margin-top: 20px;
+    width: 90%;
+  }
+</style>

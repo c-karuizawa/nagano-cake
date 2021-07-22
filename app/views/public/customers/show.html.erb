@@ -1,0 +1,73 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12 px-sm-0, content'>
+    <span class="title">　マイページ　</span>
+    <div class="subtitle"><br>登録情報　<%= link_to '　編集する　', customers_edit_path, class: "btn btn-success" %></div>
+
+    <table cellpadding="10" border="1">
+      <!--colgroupはtdでcolspanを適用させるために記載-->
+      <colgroup>
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+      </colgroup>
+      <tr>
+        <td class="item">氏名</td>
+        <!--&emsp;は空白の役割-->
+        <td colspan="3"><%= @customer.last_name %>&emsp;<%= @customer.first_name %></td>
+      </tr>
+      <tr>
+        <td class="item">カナ</td>
+        <td colspan="3"><%= @customer.last_name_kana %>&emsp;<%= @customer.first_name_kana %></td>
+      </tr>
+      <tr>
+        <td class="item">郵便番号</td>
+        <td colspan="3"><%= @customer.postal_code %></td>
+      </tr>
+      <tr>
+        <td class="item">住所</td>
+        <td colspan="3"><%= @customer.address %></td>
+      </tr>
+      <tr>
+        <td class="item">電話番号</td>
+        <td colspan="3"><%= @customer.phone_number %></td>
+      </tr>
+      <tr>
+        <td class="item">メールアドレス</td>
+        <td colspan="3"><%= @customer.email %></td>
+      </tr>
+    </table>
+    <br>
+    <br>
+    <div class="subtitle">配送先　　<%= link_to '　一覧を見る　', locations_path, class: "btn btn-primary" %></div>
+    <br>
+    <div class="subtitle">注文履歴　<%= link_to '　一覧を見る　', '#', class: "btn btn-primary" %></div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .content{
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .title{
+    margin-left: 30px;
+    background-color: #EEEEEE;
+    font-size: 20px;
+    font-family: serif;
+  }
+  .subtitle{
+    font-size: 20px;
+    font-family: serif;
+  }
+  table{
+    width: 60%;
+    margin-top: 20px;
+  }
+  .item{
+    background-color: #EEEEEE;
+  }
+</style>

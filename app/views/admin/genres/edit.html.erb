@@ -1,0 +1,18 @@
+<div class="container" style="margin-bottom:80px;">
+
+
+<div class="head-line" style="margin-bottom:60px;">
+<h2 class="head-line">ジャンル編集</h2></div>
+
+
+<%= form_with model:@genre,url:admin_genre_path(@genre.id),local:true do |f| %>
+<%= render "form", f: f %>
+ <%= f.submit "　変更を保存　" ,class:"btn btn-success offset-1 pl-20"%>
+</div>   
+<% end %>
+
+
+
+
+</div>
+</div>

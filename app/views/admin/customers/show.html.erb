@@ -1,0 +1,79 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12 px-sm-0, content'>
+    <span class="title">　<%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細　</span>
+
+    <table cellpadding="10">
+      <!--colgroupはtdでcolspanを適用させるために記載-->
+      <colgroup>
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+        <col style="width: 25%;">
+      </colgroup>
+      <tr>
+        <td>会員ID</td>
+        <td colspan="3"><%= @customer.id %></td>
+      </tr>
+      <tr>
+        <td>氏名</td>
+        <!--&emsp;は空白の役割-->
+        <td colspan="3"><%= @customer.last_name %>&emsp;<%= @customer.first_name %></td>
+      </tr>
+      <tr>
+        <td>フリガナ</td>
+        <td colspan="3"><%= @customer.last_name_kana %>&emsp;<%= @customer.first_name_kana %></td>
+      </tr>
+      <tr>
+        <td>郵便番号</td>
+        <td colspan="3"><%= @customer.postal_code %></td>
+      </tr>
+      <tr>
+        <td>住所</td>
+        <td colspan="3"><%= @customer.address %></td>
+      </tr>
+      <tr>
+        <td>電話番号</td>
+        <td colspan="3"><%= @customer.phone_number %></td>
+      </tr>
+      <tr>
+        <td>メールアドレス</td>
+        <td colspan="3"><%= @customer.email %></td>
+      </tr>
+      <tr>
+        <td>会員ステータス</td>
+        <td colspan="3">
+          <% if @customer.is_active %>
+            <div style="color: green;">有効</div>
+          <% else %>
+            <div style="color: #CCCCCC">退会</div>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><%= link_to '　編集する　', edit_admin_customer_path(@customer), class: "btn btn-success" %></td>
+        <td><%= link_to '　注文履歴一覧を見る　', '#', class: "btn btn-primary" %></td>
+        <td></td>
+      </tr>
+    </table>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .content{
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .title{
+    background-color: #EEEEEE;
+    font-size: 20px;
+    font-family: serif;
+  }
+  table{
+    width: 90%;
+    margin-top: 20px;
+  }
+</style>

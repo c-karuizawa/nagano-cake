@@ -1,0 +1,65 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12 px-sm-0, content'>
+
+    <% if @location.errors.any? %>
+      <div id="error explanation">
+        <h3 style="color: red;"><%= @location.errors.count %> error prohibited this obj from being saved:</h3>
+          <ul style="color: red;">
+            <% @location.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+      </div>
+    <% end %>
+
+    <span>　配送先編集　</span>
+    <%= form_with model: @location, url: edit_locations_path(@location), local: true do |f| %>
+      <table cellpadding="10" class="table1">
+        <!--colgroupはtdでcolspanを適用させるために記載-->
+        <colgroup>
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+        </colgroup>
+        <tr>
+          <td>郵便番号（ハイフンなし）</td>
+          <td><%= f.text_field :postal_code %></t>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>住所</td>
+          <td><%= f.text_field :address, :size=>"50" %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>宛名</td>
+          <td><%= f.text_field :name %></td>
+          <td><%= f.submit "変更内容を保存", class: "btn btn-success" %></td>
+          <td></td>
+        </tr>
+      </table>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content{
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  span{
+    margin-left: 30px;
+    background-color: #EEEEEE;
+    font-size: 20px;
+    font-family: serif;
+  }
+  .table1{
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
+</style>

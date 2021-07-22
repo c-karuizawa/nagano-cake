@@ -1,0 +1,10 @@
+ 
+  <div class="col-2 off-set-1">
+       <ul class="list-group">
+       <li class="list-group-item"><strong>ジャンル検索</strong></li>
+        <% @genres.each do |genre| %>
+       <li class="list-group-item"><%=genre.name %></li>
+        <% end %>
+       </ul>
+   </div>
+   

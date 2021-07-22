@@ -1,0 +1,41 @@
+<div class="container">
+
+<div class="row" style="margin-top:40px;">
+    
+<%= render 'genrelist' %>
+
+<!--商品画像をcol-4に入れる-->
+    <div class="col-4">
+    <%= attachment_image_tag @item, :image, format: 'jpeg', fallback: "no_image.jpg",size:"300x300" %>
+    </div>
+<!--商品画像をcol-６に入れる-->   
+    <div class="col-6">
+    <h4 class="head-line"><%=@item.name %></h4>
+    
+    <p><%=safe_join(@item.introduction.split("\n"),tag(:br)) %></p>
+    
+    <p style="font-size:20px;"><strong><%= @item.taxin_price.round.to_s(:delimited) %>円（税込）</strong></p>
+    
+    
+        <% if @item.on_sale == false %>
+         <p class="soldout" style="color:red; font-size:20px;">SOLD OUT</p>
+         <% else %>
+            <% if customer_signed_in? %>
+        <!--個数のカラムはカーとアイテムなので@carr_item-->
+        <%= form_with model:@cart_item,url:cart_items_path,method: :post,local:true do |f| %>
+        <!--[1..10]でも良いのかな-->
+        <!--個数をデータベースに保存するときにitem_idもいるので、hidden_fieldでidも取得します-->
+        <%= f.hidden_field :item_id, value: @item.id %>
+        <%= f.hidden_field :customer_id, :value => current_customer.id %>
+        <%= f.select :quantity,[1,2,3,4,5,6,7,8,9,10],{include_blank: '個数選択'},required:true%>&emsp;
+        <%= f.submit 'カートに入れる' ,class: 'btn btn-success btn-sm'%><% end %>
+            <% else %>
+                <p style="color:green;"><strong>販売中<br>注文にはログインが必要です。</strong></p>
+            <% end %>
+        <% end %>
+        </div>
+    </div>
+    
+    
+</div>
+<div>

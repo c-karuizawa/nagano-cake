@@ -1,0 +1,108 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12 px-sm-0, content'>
+
+    <% if @location_new.errors.any? %>
+      <div id="error explanation">
+        <h3 style="color: red;"><%= @location_new.errors.count %> error prohibited this obj from being saved:</h3>
+          <ul style="color: red;">
+            <% @location_new.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+      </div>
+    <% end %>
+
+    <span>　配送先登録／一覧　</span>
+      <%= form_with model: @location_new, url: locations_path, local: true do |f| %>
+      <table cellpadding="10" class="table1">
+        <!--colgroupはtdでcolspanを適用させるために記載-->
+        <colgroup>
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+          <col style="width: 25%;">
+        </colgroup>
+        <tr>
+          <td>郵便番号（ハイフンなし）</td>
+          <td><%= f.text_field :postal_code %></t>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>住所</td>
+          <td><%= f.text_field :address, :size=>"50" %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>宛名</td>
+          <td><%= f.text_field :name %></td>
+          <td><%= f.submit "　新規登録　", class: "btn btn-success" %></td>
+          <td></td>
+        </tr>
+      </table>
+    <% end %>
+
+    <table cellpadding="10" border="1" class="table2">
+      <!--colgroupはtdでcolspanを適用させるために記載-->
+      <colgroup>
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+      </colgroup>
+      <thead>
+        <tr style="background-color: #EEEEEE;">
+          <th colspan="1">郵便番号</th>
+          <th colspan="5">住所</th>
+          <th colspan="2">宛名</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @locations.each do |location| %>
+        <tr>
+          <td colspan="1"><%= location.postal_code %></td>
+          <td colspan="5"><%= location.address %></td>
+          <td colspan="2"><%= location.name %></td>
+          <td colspan="2" align="center">
+            <%= link_to '編集する', edit_locations_path(location), class: "btn btn-sm btn-success edit_location_#{location.id}" %>
+            <%= link_to '削除する', destroy_locations_path(location), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_location_#{location.id}" %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content{
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  span{
+    margin-left: 30px;
+    background-color: #EEEEEE;
+    font-size: 20px;
+    font-family: serif;
+  }
+  .table1{
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
+
+  .table2{
+    margin-bottom: 50px;
+    width: 80%;
+  }
+</style>

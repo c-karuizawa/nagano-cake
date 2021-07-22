@@ -1,0 +1,34 @@
+<div class="container mb-5">
+  
+  <h3 class="m-5">
+    <span class="bg-light">　管理者ログイン　</span>
+  </h3>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= render "devise/shared/error_messages", resource: resource %>
+  <div class="row">
+  <p class="col-sm-2"></p>
+  <p class="col-sm-2">メールアドレス</p>
+  <div class="field col-sm-8">
+    <%= f.email_field :email, autofocus: true, :size => "45*30", autocomplete: "email", placeholder: "sample@example.com" %>
+  </div>
+  </div>
+
+  <div class="row">
+    <p class="col-sm-2"></p>
+    <p class="col-sm-2">パスワード</p>
+  <div class="field col-sm-8">
+    <%= f.password_field :password, :size => "45*30", autocomplete: "current-password" %>
+  </div>
+  </div>
+
+
+   <div class="row mt-4">
+    <p class="col-sm-4"></p>
+  <div class="actions col-sm-8">
+    <%= f.submit "　　ログイン　　", class: "btn btn-primary" %>
+  </div>
+  </div>
+<% end %>
+
+</div>

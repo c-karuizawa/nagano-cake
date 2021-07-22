@@ -1,0 +1,79 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-12 col-lg-12 px-sm-0, content'>
+    <span class="title">　会員一覧　</span>
+    <table cellpadding="10">
+      <!--colgroupはtdでcolspanを適用させるために記載-->
+      <colgroup>
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+      </colgroup>
+      <thead>
+        <tr style="background-color: #EEEEEE;">
+          <th colspan="1">会員ID</th>
+          <th colspan="2">氏名</th>
+          <th colspan="5">メールアドレス</th>
+          <th colspan="2">ステータス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @customers.each do |customer| %>
+        <tr>
+          <td colspan="1"><%= customer.id %></td>
+          <td colspan="2">
+            <%= link_to (customer.last_name + customer.first_name), admin_customer_path(customer), class: "customer_#{customer.id}" %>
+          </td>
+          <td colspan="5"><%= customer.email %></td>
+          <td colspan="2">
+            <% if customer.is_active %>
+              <div style="color: green;">有効</div>
+            <% else %>
+              <div style="color: #CCCCCC">退会</div>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="pagination"><%= paginate @customers %></div>
+    </div>
+  </div>
+</div>
+
+
+<style>
+  .content{
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .title{
+    background-color: #EEEEEE;
+    font-size: 20px;
+    font-family: serif;
+    margin-left: 10%;
+  }
+  table{
+    width: 70%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  tr{
+    /*上下だけ囲む時の記述*/
+    border-width: 1px 0;
+    border-color: #CCCCCC;
+    border-style: solid;
+  }
+  .pagination{
+    justify-content: center;
+    padding-top: 10px;
+  }
+</style>
