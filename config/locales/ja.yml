@@ -10,9 +10,6 @@ ja:
                 make: "製作中"
                 preparing: "発送準備中"
                 done: "発送済み"
-        
-ja:
-    enums:
         order_item:
             product_status:
                 can_not: "着手不可"

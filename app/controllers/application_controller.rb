@@ -14,14 +14,20 @@ class ApplicationController < ActionController::Base
   end
 
   # ログアウト後の遷移先の指定
-  # def after_sign_out_path_for(resource)
-  #   case resource
-  #   when Admin
-  #     new_admin_admin_session_path
-  #   when Customer
-  #     root_path
-  #   end
-  # end
+  def after_sign_out_path_for(resource)
+    if resource == :admin_admin
+      new_admin_admin_session_path
+    else
+      root_path
+    end
+    # ログアウトの際はwhenが使えない。おそらくrailsがそういう仕様とのこと
+    # case resource
+    # when Admin
+    #   new_admin_admin_session_path
+    # when Customer
+    #   root_path
+    # end
+  end
 
   
   
