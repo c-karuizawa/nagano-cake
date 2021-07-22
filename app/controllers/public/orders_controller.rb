@@ -15,12 +15,14 @@ class Public::OrdersController < ApplicationController
     @locations = @customer.locations
     @order = Order.new(@attr)
     session[:order] = @order
+    # ご自身の住所に郵送の場合
     if params[:locate] == "0"
       session[:order][:postal_code] = @customer.postal_code
       session[:order][:address] = @customer.address
       session[:order][:name] = @customer.last_name + @customer.first_name
       session[:order][:customer_id] = @customer.id
       session[:order][:total_price] = @total + @order.postage
+    # 登録済住所に郵送の場合
     elsif params[:locate] == "1"
       location = @locations.find(params[:order][:locate_id])
       session[:order][:postal_code] = location.postal_code
@@ -28,6 +30,7 @@ class Public::OrdersController < ApplicationController
       session[:order][:name] = location.name
       session[:order][:customer_id] = @customer.id
       session[:order][:total_price] = @total + @order.postage
+    # 新しいお届け先に郵送の場合
     elsif params[:locate] == "2"
       if session[:order][:postal_code].present? && session[:order][:address].present? && session[:order][:name].present?
         @order = Order.new(@attr)
@@ -42,14 +45,24 @@ class Public::OrdersController < ApplicationController
   def create
     order = Order.new(session[:order])
     order.save
+    # 注文履歴を引っ張ってくるためのOrderItem登録処理
     @cart_items = current_customer.cart_items.all
     @cart_items.each do |cart_item|
       OrderItem.create!(order_id: order.id,
                         item_id: cart_item.item_id,
                         quantity: cart_item.quantity,
-                        taxin_price: cart_item.item.taxin_price
-                       )
+                        taxin_price: cart_item.item.taxin_price)
     end
+    # 新しいお届け先住所の場合の登録処理
+    customer = current_customer
+    locate = customer.locations
+    unless (order.address == customer.address) || locate.exists?(address: order.address)
+      Location.create!(customer_id: customer.id,
+                       postal_code: order.postal_code,
+                       address: order.address,
+                       name: order.name)
+    end
+    # セッションとカートのリセット処理
     session.delete(:order)
     @cart_items.destroy_all
     redirect_to orders_done_path

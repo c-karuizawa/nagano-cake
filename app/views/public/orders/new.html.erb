@@ -16,12 +16,10 @@
           <%= f.label :bank, "銀行振込" %>
         </div>
 
-
       <h6 style="font-weight: bold;">お届け先</h6>
         <div>
           <%= radio_button_tag :locate, "0", checked: true %>
           <%= f.label :locate, "ご自身の住所", value: "0" %>
-          <!--&emsp;は空白の役割-->
           <div style="margin-left: 30px;">〒<%= @customer.postal_code %>&emsp;<%= @customer.address %><br><%= @customer.last_name %><%= @customer.first_name %></div>
         </div>
         <br>
