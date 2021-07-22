@@ -11,8 +11,10 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.update(order_params)
     #   注文ステータスと制作ステータスの紐付け
-    if params[:order][:order_status] == 1
-      @order.order_item.update(product_status: 1)
+     # paramsのデータを取得する記述(enumの場合は文字列で出力される)
+     p params[:order][:order_status]
+    if params[:order][:order_status] == "payment"
+      @order.order_items.update(product_status: "make_wait")
     end
     redirect_to admin_order_path(@order.id)
   end

@@ -3,10 +3,11 @@ class Admin::OrderItemsController < ApplicationController
       @order_item = OrderItem.find(params[:id])
       @order_item.update(order_item_params)
     #   制作ステータスと注文ステータスの紐付け
-    if params[:order_item][:product_status] ==  2
-      @order_item.order.update(order_status: 2)
-    elsif params[:order_item][:product_status] == 3
-      @order_item.order.update(order_status: 3)
+    # paramsのデータを取得する記述(enumの場合は文字列で出力される)
+    if params[:order_item][:product_status] ==  "make"
+      @order_item.order.update(order_status: "make")
+    elsif params[:order_item][:product_status] == "finish"
+      @order_item.order.update(order_status: "preparing")
     end
     redirect_to admin_order_path(@order_item.order.id)
    end
