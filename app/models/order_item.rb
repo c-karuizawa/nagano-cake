@@ -1,4 +1,7 @@
 class OrderItem < ApplicationRecord
+  def sum_of_price
+    item.taxin_price * quantity
+  end
 
  
    belongs_to :item

@@ -44,4 +44,7 @@ Item.create!(genre_id: 1,
              introduction: "季節の長野県産りんごを使用",
              price: 500)
 
-
+Item.create!(genre_id: 1,
+             name: "アップルアイス",
+             introduction: "季節の長野県産りんごを使用",
+             price: 300)

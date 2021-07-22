@@ -1,8 +1,10 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-12 col-lg-12 px-sm-0, content'>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger"><%= alert %></div>
+    <% end %>
     <span class="title">　注文情報確認　</span>
-
     <div style="width: 85%; margin-top: 20px;">
       <table cellpadding="10" border="1" align="left">
         <!--colgroupはtdでcolspanを適用させるために記載-->
@@ -24,12 +26,15 @@
           <td colspan="2">数量</td>
           <td colspan="2">小計</td>
         </tr>
-        <% @cart_items.each do |item| %>
+        <% @cart_items.each do |cart_item| %>
         <tr>
-          <td colspan="4"><%= item.item.name %></td>
-          <td colspan="2"><%= item.item.price %></td>
-          <td colspan="2"><%= item.quantity %></td>
-          <td colspan="2"><%= item.item.price * item.quantity %></td>
+          <td colspan="4">
+              <%= attachment_image_tag cart_item.item, :image, format: 'jpeg', fallback: "no_image.jpg",size:"50x50" %>
+              &emsp;<%= cart_item.item.name %>
+          </td>
+          <td colspan="2"><%= cart_item.item.taxin_price.round.to_s(:delimited) %></td>
+          <td colspan="2"><%= cart_item.quantity %></td>
+          <td colspan="2"><%= cart_item.sum_of_price.round.to_s(:delimited) %></td>
         </tr>
         <% end %>
       </table>
@@ -45,21 +50,18 @@
         <tr>
           <td class="item">商品合計　</td>
           <td>
-            <% @sum = 0 %>
-            <% @cart_items.each do |item| %>
-              <% @sum += item.item.price * item.quantity %>
-            <% end %>
-            <%= @sum %>
+            <%= @total.round.to_s(:delimited) %>
           </td>
         </tr>
         <tr>
           <td class="item">請求金額</td>
-          <td><%= @sum + @order.postage %></td>
+          <td><%= (@total + @order.postage).round.to_s(:delimited) %></td>
         </tr>
       </table>
     </div>
 
     <div style="clear: both;">
+    <br>
       <span class="subtitle">支払い方法</span>&emsp;
       <%= @order.payment %>
     </div>
@@ -70,8 +72,8 @@
     </div>
     <br>
     <div align="center">
-      <%= form_with model: @order, url: orders_done_path, method: :post, local: true do |f| %>
-        <%= f.submit '注文を確定する', class: "btn btn-success" %>
+      <%= form_with model: @order, url: orders_path, method: :post, local: true do |f| %>
+        <%= f.submit '注文を確定する', class: "btn btn-outline-success" %>
       <% end %>
     </div>
     </div>
@@ -81,7 +83,7 @@
 <style>
   .content{
     padding-top: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 160px;
   }
   .title{
     margin-left: 30px;
