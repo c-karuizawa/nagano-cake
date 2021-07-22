@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  
    # 管理者　admin
      namespace :admin do
      # 管理者のセッション管理
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
       resources :customers, only: [:index, :show, :edit, :update]
      # ジャンル
       resources :genres, only: [:index, :create, :edit, :update]
+     #検索機能 
+     get '/search', to: 'searches#search'
      end
 
 
@@ -23,6 +26,7 @@ Rails.application.routes.draw do
    # 商品のルーティング
    scope module: :public do
      root to: 'items#top'
+     get '/search', to: 'searches#search'
      get '/about' => 'items#about'
      resources :items, only: [:index, :show]
 
