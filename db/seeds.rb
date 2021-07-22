@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
 Admin.create!(email: "sample@aa",
               password: "aaaaaa")
 
@@ -43,6 +44,7 @@ Item.create!(genre_id: 1,
              introduction: "季節の長野県産りんごを使用",
              price: 500)
 
-CartItem.create!(customer_id: 1,
-                 item_id: 1,
-                 quantity: 2)
+Item.create!(genre_id: 1,
+             name: "アップルアイス",
+             introduction: "季節の長野県産りんごを使用",
+             price: 300)

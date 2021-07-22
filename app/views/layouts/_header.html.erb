@@ -11,17 +11,30 @@
         <!--カスタマーログイン後は以下のメニューが表示されるようにしてください。-->
        <% if customer_signed_in? %>
           <li class="nav-item"><%= link_to "マイページ", customers_my_page_path,class:'nav-link btn btn-outline-danger'%></li>
-          <li class="nav-item"><%= link_to "商品一覧", items_path,class:'nav-link btn btn-outline-danger'%></li>
-           <li class="nav-item"><%= link_to "カート", cart_items_path,class:'nav-link btn btn-outline-danger'%></li>
+          <li class="nav-item  pl-4"><%= link_to "商品一覧", items_path,class:'nav-link btn btn-outline-danger'%></li>
+           <li class="nav-item  pl-4"><%= link_to "カート", cart_items_path,class:'nav-link btn btn-outline-danger'%></li>
           <li class="nav-item pl-4"><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class:'nav-link btn btn-outline-danger'%></li>
           <li><div class="input-group pl-4">
           <%= render 'layouts/search' %>
           </div></li>
         
+
+
+        <!--管理者ログインしている場合-->
+
         <% elsif admin_admin_signed_in? %>
+        <li class="nav-item"><%= link_to "商品一覧", admin_items_path, class:'nav-link btn btn-outline-danger'%></li>
+        <li class="nav-item pl-4"><%= link_to "会員一覧", admin_customers_path, class:'nav-link btn btn-outline-danger'%></li>
+        <li class="nav-item pl-4"><%= link_to "注文履歴一覧", admin_orders_path, class:'nav-link btn btn-outline-danger'%></li>
+        <li class="nav-item pl-4"><%= link_to "ジャンル一覧", admin_genres_path, class:'nav-link btn btn-outline-danger'%></li>
         <li class="nav-item pl-4"><%= link_to "ログアウト", destroy_admin_admin_session_path, method: :delete, class:'nav-link btn btn-outline-danger'%></li>
         <li><div class="input-group pl-4">
+
           <%= render 'layouts/admin_search' %>
+
+	        <input type="text" class="form-control" placeholder="Search">
+		      <button type="button" class="btn btn-default fas fa-search"></button>
+
           </div></li>
         <!--ログインしてない-->
         <% else %>

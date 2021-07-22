@@ -1,36 +1,25 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-12 col-lg-12 px-sm-0, content'>
-
-    <% if @order.errors.any? %>
-      <div id="error explanation">
-        <h3 style="color: red;"><%= @order.errors.count %> error prohibited this obj from being saved:</h3>
-          <ul style="color: red;">
-            <% @order.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-      </div>
+    <% if flash[:alert] %>
+      <div class="alert alert-danger"><%= alert %></div>
     <% end %>
-
     <span>　注文情報入力　</span>
     <%= form_with  model: @order, url: orders_confirm_path, method: :post, local: true do |f| %>
       <h6 style="font-weight: bold;">支払方法</h6>
         <div>
-          <%= f.radio_button :payment, :"クレジットカード" %>
+          <%= f.radio_button :payment, :card %>
           <%= f.label :card, "クレジットカード" %>
         </div>
         <div>
-          <%= f.radio_button :payment, :"銀行振込" %>
+          <%= f.radio_button :payment, :bank %>
           <%= f.label :bank, "銀行振込" %>
         </div>
 
-
       <h6 style="font-weight: bold;">お届け先</h6>
         <div>
-          <%= radio_button_tag :locate, "0" %>
+          <%= radio_button_tag :locate, "0", checked: true %>
           <%= f.label :locate, "ご自身の住所", value: "0" %>
-          <!--&emsp;は空白の役割-->
           <div style="margin-left: 30px;">〒<%= @customer.postal_code %>&emsp;<%= @customer.address %><br><%= @customer.last_name %><%= @customer.first_name %></div>
         </div>
         <br>
@@ -52,19 +41,19 @@
             <table cellpadding="10" style="margin-left: 30px;">
               <tr>
                 <td>郵便番号（ハイフンなし）</th>
-                <td><%= f.text_field :postal_code, :size => "30" %></td>
+                <td><%= f.text_field :postal_code, :size => "30", placeholder: "0000000" %></td>
               </tr>
               <tr>
                 <td>住所</th>
-                <td><%= f.text_field :address, :size=>"60" %></td>
+                <td><%= f.text_field :address, :size=>"60", placeholder: "東京都渋谷区代々木神園町0-0" %></td>
               </tr>
               <tr>
                 <td>宛名</th>
-                <td><%= f.text_field :name,:size=>"30" %></td>
+                <td><%= f.text_field :name,:size=>"30", placeholder: "令和道子" %></td>
               </tr>
             </table>
         </div>
-        <div align="center"><%= f.submit '確認画面へ進む', class: "btn btn-primary" %></div>
+        <div align="center"><%= f.submit '確認画面へ進む', class: "btn btn-outline-primary" %></div>
     <% end %>
     </div>
   </div>
@@ -83,5 +72,8 @@
   }
   h6{
     margin-top: 20px;
+  }
+  ::placeholder{
+    color: #CCCCCC;
   }
 </style>
