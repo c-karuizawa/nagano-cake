@@ -57,7 +57,7 @@
                       <% @order.order_items.each do |order_item| %>
                        <tr>
                          <td><%= order_item.item.name %></td>
-                         <td><%= order_item.taxin_price %></td>
+                         <td><%= order_item.taxin_price.to_s(:delimited) %></td>
                          <td><%= order_item.quantity %></td>
                          <!--小計を呼び出すコード-->
                          <td>
@@ -75,10 +75,12 @@
                  </tbody>
               </table>
          </div>
-         <div class="col-md-4">
-             <p>商品合計　　　<%= @order.order_items.sum(:taxin_price) %>円</p>
-             <p>送料　　　　　<%= @order.postage %>円</p>
-             <p>請求金額合計　<%= @order.order_items.sum(:taxin_price) + @order.postage %>円</p>
+         <div class="col-md-4 d-flex align-items-end ">
+            <div class="ml-5">
+                <p>商品合計　　　<%= @order.subtotal.to_s(:delimited) %>円</p>
+                <p>送料　　　　　<%= @order.postage %>円</p>
+                <p>請求金額合計　<%= @order.total_price.to_s(:delimited) %>円</p>
+            </div>
          </div>
      </div>
 </div>

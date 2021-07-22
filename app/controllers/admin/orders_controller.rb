@@ -5,6 +5,8 @@ class Admin::OrdersController < ApplicationController
 
   def show
     @order =Order.find(params[:id])
+    order_items = @order.order_items
+    @total = order_items.inject(0) { |sum, item| sum + item.sum_of_price }
   end
 
   def update
@@ -12,7 +14,7 @@ class Admin::OrdersController < ApplicationController
     @order.update(order_params)
     #   注文ステータスと制作ステータスの紐付け
      # paramsのデータを取得する記述(enumの場合は文字列で出力される)
-     p params[:order][:order_status]
+    # p params[:order][:order_status]
     if params[:order][:order_status] == "payment"
       @order.order_items.update(product_status: "make_wait")
     end
