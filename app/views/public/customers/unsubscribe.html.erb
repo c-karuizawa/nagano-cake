@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto" style="text-align:center; margin: 100px;">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto" style="text-align:center; margin-top: 100px;">
       <h4>本当に退会しますか？</h4>
       <br>
       <br>
@@ -9,10 +9,10 @@
       <p>退会する場合は、「退会する」をクリックしてください。</p>
       <br>
       <br>
-      <%= link_to '　退会しない　', root_path, class: "btn btn-primary" %>
+      <%= link_to '　退会しない　', root_path, class: "btn btn-outline-primary" %>
       <!--&emsp;は空白の役割-->
       &emsp;
-      <%= link_to '　退会する　', customers_withdraw_path, method: :patch, class: "btn btn-danger" %>
+      <%= link_to '　退会する　', customers_withdraw_path, method: :patch, class: "btn btn-outline-danger" %>
     </div>
   </div>
 </div>

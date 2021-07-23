@@ -25,7 +25,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @customers.each do |customer| %>
+        <% customers.each do |customer| %>
         <tr>
           <td colspan="1"><%= customer.id %></td>
           <td colspan="2">
@@ -43,16 +43,15 @@
         <% end %>
       </tbody>
     </table>
-    <div class="pagination"><%= paginate @customers %></div>
-    </div>
+   
   </div>
 </div>
 
 
 <style>
   .content{
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
   .title{
     background-color: #EEEEEE;

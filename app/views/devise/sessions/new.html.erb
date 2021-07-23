@@ -1,4 +1,11 @@
 <div class="container">
+  
+  <!--退会ずみのユーザーに対するメッセージ-->
+  <% if flash[:alert] %>
+  <div class="alert" role="alert">
+  <p class="notice text-center" style="color:red;"><%= flash[:alert] %></p></div>
+  <% end %>
+
     <h3 class="m-5">
     <span class="bg-light">　ログイン　</span>
     </h3>

@@ -1,8 +1,8 @@
 class Public::CartItemsController < ApplicationController
-  
+  before_action :authenticate_customer!
   
   def index
-    # .allなくてもいけた　
+    # .allなくてもいけた
     @cart_items= current_customer.cart_items.all
     # カートに入ってる商品の合計金額
     @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
@@ -22,10 +22,10 @@ class Public::CartItemsController < ApplicationController
         end
         @cart_item.save
         redirect_to cart_items_path,notice:"カートに商品が入りました"
-    
+
     end
 
-  
+
 
   def update
     @cart_item = CartItem.find(params[:id])
@@ -39,9 +39,9 @@ class Public::CartItemsController < ApplicationController
     if @cart_item.destroy
       redirect_to cart_items_path
     end
-  
+
   end
-  
+
 
   def all_destroy
     @cart_items= current_customer.cart_items.all
@@ -49,10 +49,10 @@ class Public::CartItemsController < ApplicationController
     @cart_items.destroy_all
     redirect_to cart_items_path
   end
-  
+
   private
   def params_cart_item
     params.require(:cart_item).permit(:quantity, :item_id,:customer_id)
   end
-  
+
 end

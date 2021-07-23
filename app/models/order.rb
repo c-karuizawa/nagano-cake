@@ -1,5 +1,10 @@
 class Order < ApplicationRecord
 
+  validates :address, :name, presence: true
+
+
+ 
+  
    has_many :order_items, dependent: :destroy
    belongs_to :customer, optional: true
    

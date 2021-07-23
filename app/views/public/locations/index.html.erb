@@ -25,20 +25,20 @@
         </colgroup>
         <tr>
           <td>郵便番号（ハイフンなし）</td>
-          <td><%= f.text_field :postal_code %></t>
+          <td><%= f.text_field :postal_code, placeholder: "0000000" %></t>
           <td></td>
           <td></td>
         </tr>
         <tr>
           <td>住所</td>
-          <td><%= f.text_field :address, :size=>"50" %></td>
+          <td><%= f.text_field :address, :size=>"50", placeholder: "東京都渋谷区代々木神園町0-0" %></td>
           <td></td>
           <td></td>
         </tr>
         <tr>
           <td>宛名</td>
-          <td><%= f.text_field :name %></td>
-          <td><%= f.submit "　新規登録　", class: "btn btn-success" %></td>
+          <td><%= f.text_field :name, placeholder: "令和道子" %></td>
+          <td><%= f.submit "　新規登録　", class: "btn btn-outline-success" %></td>
           <td></td>
         </tr>
       </table>
@@ -104,5 +104,8 @@
   .table2{
     margin-bottom: 50px;
     width: 80%;
+  }
+  ::placeholder{
+    color: #CCCCCC;
   }
 </style>

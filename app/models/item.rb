@@ -22,11 +22,18 @@ class Item < ApplicationRecord
     validates :price, numericality: { only_integer: true }
 
 
-
 # 　　private
     def taxin_price
         price*1.1
     end
 
-    has_many :cart_items
+    def self.search_for(content)
+        Item.where('name LIKE ?', '%'+content+'%').or(Item.where(genre_id: content))
+    end
+    
+        
+    # def self.search_for(value)
+    #     Item.where(genre_id: value)
+    # end
+        
 end

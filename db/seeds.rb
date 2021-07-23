@@ -37,11 +37,17 @@ Genre.create!(name: "ケーキ")
 Item.create!(genre_id: 1,
              name: "アップルパイ",
              introduction: "季節の長野県産りんごを使用",
+             on_sale: true,
              price: 1000)
 
 Item.create!(genre_id: 1,
              name: "アップルジャム",
              introduction: "季節の長野県産りんごを使用",
+             on_sale: true,
              price: 500)
 
-
+Item.create!(genre_id: 1,
+             name: "アップルアイス",
+             introduction: "季節の長野県産りんごを使用",
+             on_sale: true,
+             price: 300)

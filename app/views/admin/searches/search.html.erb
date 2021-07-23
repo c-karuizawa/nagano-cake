@@ -1,0 +1,13 @@
+<% if @records.empty? %>
+  <div class="text-center" style="margin:30px;">
+  <p style="color:red;">該当はありません</p></div>
+<% end %>
+
+
+<% if @model == 'customer' %>
+    <!--<h3>Customer search for "%= @content %>"</h3>-->
+  <%= render 'admin/customers/index', customers: @records %>
+<% else %>
+    <!--<h3>Item search for "%= @content %>"</h3>-->
+  <%= render 'admin/items/index', items: @records %>
+<% end %>
