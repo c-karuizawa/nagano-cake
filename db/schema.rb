@@ -59,10 +59,10 @@ ActiveRecord::Schema.define(version: 2021_07_19_054334) do
   end
 
   create_table "items", force: :cascade do |t|
-    t.integer "genre_id"
-    t.string "name"
-    t.text "introduction"
-    t.integer "price"
+    t.integer "genre_id", null: false
+    t.string "name", null: false
+    t.text "introduction", null: false
+    t.integer "price", null: false
     t.string "image_id"
     t.boolean "on_sale"
     t.datetime "created_at", null: false
