@@ -36,6 +36,7 @@ class Public::OrdersController < ApplicationController
     # 新しいお届け先に郵送の場合
     elsif params[:locate] == "2"
       if session[:order][:postal_code].present? && session[:order][:address].present? && session[:order][:name].present? && session[:order][:postal_code].length == 7
+        @order = Order.new(@attr)
         session[:order][:customer_id] = @customer.id
         session[:order][:total_price] = @total + @order.postage
         session[:locate] = "2"
@@ -94,6 +95,10 @@ class Public::OrdersController < ApplicationController
   private
     def permit_params
       @attr = params.require(:order).permit(:id, :name, :postal_code, :address, :payment, :customer_id, :total_price)
+    end
+
+    def address_params
+      params.require(:order).permit(:postal_code, :address, :name)
     end
 
 end
