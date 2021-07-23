@@ -7,7 +7,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
-        
+
         <!--カスタマーログイン後は以下のメニューが表示されるようにしてください。-->
        <% if customer_signed_in? %>
           <li class="nav-item"><%= link_to "マイページ", customers_my_page_path,class:'nav-link btn btn-outline-danger'%></li>
@@ -17,7 +17,7 @@
           <li><div class="input-group pl-4">
           <%= render 'layouts/search' %>
           </div></li>
-        
+
 
 
         <!--管理者ログインしている場合-->
@@ -45,8 +45,8 @@
           <%= render 'layouts/search' %>
           </div></li>
         <% end %>
-          
-        
+
+
         </ul>
       </div>
     </div>

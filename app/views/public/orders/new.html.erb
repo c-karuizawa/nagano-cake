@@ -1,9 +1,12 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-12 col-lg-12 px-sm-0, content'>
+    <% if @customer.cart_items.present? %>
+
     <% if flash[:alert] %>
       <div class="alert alert-danger"><%= alert %></div>
     <% end %>
+
     <span>　注文情報入力　</span>
     <%= form_with  model: @order, url: orders_confirm_path, method: :post, local: true do |f| %>
       <h6 style="font-weight: bold;">支払方法</h6>
@@ -55,6 +58,13 @@
         </div>
         <div align="center"><%= f.submit '確認画面へ進む', class: "btn btn-outline-primary" %></div>
     <% end %>
+
+    <% else %>
+      <div style="margin-top: 200px; text-align: center;">
+       <h5>カートに商品はありません。<br>個数を選択し商品をカートに入れてください。</h5><%= link_to "商品を選ぶ","items",class:"btn btn-primary"%>
+      </div>
+    <% end %>
+
     </div>
   </div>
 </div>

@@ -1,4 +1,6 @@
 class Public::LocationsController < ApplicationController
+  before_action :authenticate_customer!
+
   def index
     @customer = current_customer
     @locations = @customer.locations

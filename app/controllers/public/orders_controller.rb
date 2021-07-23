@@ -1,4 +1,5 @@
 class Public::OrdersController < ApplicationController
+  before_action :authenticate_customer!
   before_action :permit_params, only: :confirm
 
   def new
@@ -15,13 +16,14 @@ class Public::OrdersController < ApplicationController
     @locations = @customer.locations
     @order = Order.new(@attr)
     session[:order] = @order
-    # ご自身の住所に郵送の場合
+    # 自身の住所に郵送の場合
     if params[:locate] == "0"
       session[:order][:postal_code] = @customer.postal_code
       session[:order][:address] = @customer.address
       session[:order][:name] = @customer.last_name + @customer.first_name
       session[:order][:customer_id] = @customer.id
       session[:order][:total_price] = @total + @order.postage
+      session[:locate] = "0"
     # 登録済住所に郵送の場合
     elsif params[:locate] == "1"
       location = @locations.find(params[:order][:locate_id])
@@ -30,12 +32,14 @@ class Public::OrdersController < ApplicationController
       session[:order][:name] = location.name
       session[:order][:customer_id] = @customer.id
       session[:order][:total_price] = @total + @order.postage
+      session[:locate] = "1"
     # 新しいお届け先に郵送の場合
     elsif params[:locate] == "2"
-      if session[:order][:postal_code].present? && session[:order][:address].present? && session[:order][:name].present?
+      if session[:order][:postal_code].present? && session[:order][:address].present? && session[:order][:name].present? && session[:order][:postal_code].length == 7
         @order = Order.new(@attr)
         session[:order][:customer_id] = @customer.id
         session[:order][:total_price] = @total + @order.postage
+        session[:locate] = "2"
       else
         redirect_to new_order_path, alert: 'お届け先を選択または入力してください'
       end
@@ -54,10 +58,8 @@ class Public::OrdersController < ApplicationController
                         taxin_price: cart_item.item.taxin_price)
     end
     # 新しいお届け先住所の場合の登録処理
-    customer = current_customer
-    locate = customer.locations
-    unless (order.address == customer.address) || locate.exists?(address: order.address)
-      Location.create!(customer_id: customer.id,
+    if session[:locate] == "2"
+      Location.create!(customer_id: current_customer.id,
                        postal_code: order.postal_code,
                        address: order.address,
                        name: order.name)
@@ -65,10 +67,16 @@ class Public::OrdersController < ApplicationController
     # セッションとカートのリセット処理
     session.delete(:order)
     @cart_items.destroy_all
+    session[:done] = true
     redirect_to orders_done_path
   end
 
   def done
+    if session[:done]
+      session[:done] = nil
+    else
+      redirect_to root_path
+    end
   end
 
   def index
@@ -87,6 +95,10 @@ class Public::OrdersController < ApplicationController
   private
     def permit_params
       @attr = params.require(:order).permit(:id, :name, :postal_code, :address, :payment, :customer_id, :total_price)
+    end
+
+    def address_params
+      params.require(:order).permit(:postal_code, :address, :name)
     end
 
 end

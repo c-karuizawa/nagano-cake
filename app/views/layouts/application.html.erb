@@ -10,14 +10,25 @@
 
   <body>
    <%= render 'layouts/header' %>
-    
-    
-    
-    
+   <div class="wrapper">
+
+
+
+
     <main>
     <%= yield %>
     </main>
     <!--フッターー部分を部分テンプレにしました-->
     <%= render 'layouts/footer' %>
+    </div>
   </body>
 </html>
+
+
+<style>
+  .wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  }
+</style>
