@@ -13,7 +13,7 @@ ja:
         order_item:
             product_status:
                 can_not: "着手不可"
-                make_wait: "制作待ち"
+                make_wait: "製作待ち"
                 make: "製作中"
-                finish: "制作完了"
+                finish: "製作完了"
 

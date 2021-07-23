@@ -1,84 +1,87 @@
 <div class="container">
-        <h3 class="head-line mt-5 mb-4 ml-5">
-            <span class="bg-light">　注文履歴詳細　</span>
-        </h3>
-        <div class="row">
-            <p class="col-md-2">購入者</p>
-            <p class="col-md-10">
-              <%= link_to admin_customer_path(@order.id) do %>
-              <%= @order.customer.last_name %> <%= @order.customer.first_name %>
-              <% end %>
-            </p>
+      <h3 class="head-line mt-5 mb-4 ml-5">
+         <span class="bg-light">　注文履歴詳細　</span>
+      </h3>
+      <div class="row">
+         <p class="col-md-2">購入者</p>
+         <p class="col-md-10">
+            <%= link_to admin_customer_path(@order.id) do %>
+               <%= @order.customer.last_name %> <%= @order.customer.first_name %>
+            <% end %>
+         </p>
+      </div>
          
-        </div>
-     
-        <div class="row">
+      <div class="row">
          <p class="col-md-2">注文日</p>
          <p class="col-md-10"><%= @order.created_at.to_s(:date_jp) %></p>
-        </div>
+      </div>
         
-        <div class="row">
+      <div class="row">
          <p class="col-md-2">配送先</p>
          <p class="col-md-10">〒<%= @order.postal_code.to_s.insert(3, "-") %> <%= @order.address %></p>
-        </div>
+      </div>
         
-     <div class="row">
+      <div class="row">
          <p class="col-md-2"></p>
          <p class="col-md-10"><%= @order.name %></p>
-     </div>
-
-     <div class="row">
+      </div>
+      
+      <div class="row">
          <p class="col-md-2">支払い方法</p>
          <p class="col-md-10"><%= @order.payment_i18n %></p>
-     </div>
+      </div>
 
-     <div class="row">
+      <div class="row">
          <p class="col-md-2">注文ステータス</p>
          <div class="col-md-10">
-             <%= form_with url:admin_order_path(@order.id), method: :patch, local: true do | f | %> 
-                 <%= f.select :order_status, options_for_select_from_enum(Order, :order_status) %>
-                 <%= f.submit '更新',class: 'btn btn-success ml-4' %>
-             <% end %>
+            <%= form_with model: @order, url:admin_order_path(@order.id), method: :patch, local: true do | f | %> 
+               <%= f.select :order_status, options_for_select_from_enum(Order, :order_status) %>
+               <%= f.submit '更新',class: 'btn btn-success ml-4' %>
+            <% end %>
          </div>
-     </div>
-     <div class="row mt-5">
+      </div>
+      <div class="row mt-5">
          <div class="col-md-8">
-              <table class="table table-striped table-hover">
-                 <thead>
-                       <tr>
-                         <th>商品名</th>
-                         <th>単価(税込)</th>
-                         <th>数量</th>
-                         <th>小計</th>
-                         <th>制作ステータス</th>
-                      </tr>
-                 </thead>
-                 <tbody>
-                      <% @order.order_items.each do |order_item| %>
-                       <tr>
-                         <td><%= order_item.item.name %></td>
-                         <td><%= order_item.taxin_price %></td>
-                         <td><%= order_item.quantity %></td>
-                         <!--小計を呼び出すコード-->
-                         <td>
-                             <%= order_item.subtotal.to_s(:delimited) %>
-                         </td>
-                         <td>
-                             <%= form_with url:admin_order_item_path(order_item.id), method: :patch, local: true do | f | %> 
-                                 <%#= f.select :product_status, options_for_select_from_enum(OrderItem, :product_status) %>
-                                 <%= f.select :product_status, OrderItem.product_statuses.keys.map {|k| [I18n.t("enums.order_item.product_status.#{k}"), k]} %>
-                                 <%= f.submit '更新',class: 'btn btn-success ml-2' %>
-                             <% end %>
-                         </td>
-                      </tr>
-                      <% end %>
-                 </tbody>
-              </table>
+            <table class="table table-striped table-hover">
+               <thead>
+                  <tr>
+                     <th>商品名</th>
+                     <th>単価(税込)</th>
+                     <th>数量</th>
+                     <th>小計</th>
+                     <th>制作ステータス</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <% @order.order_items.each do |order_item| %>
+                     <tr>
+                        <td><%= order_item.item.name %></td>
+                        <td><%= order_item.taxin_price.to_s(:delimited) %></td>
+                        <td><%= order_item.quantity %></td>
+                        <!--モデルに小計を呼び出すコード-->
+                        <td>
+                           <%= order_item.subtotal.to_s(:delimited) %>
+                        </td>
+                        <td>
+                           <%= form_with model: order_item, url:admin_order_item_path(order_item.id), method: :patch, local: true do | f | %> 
+                              <%#= f.select :product_status, options_for_select_from_enum(OrderItem, :product_status) %>
+                              <%= f.select :product_status, OrderItem.product_statuses.keys.map {|k| [I18n.t("enums.order_item.product_status.#{k}"), k]} %>
+                              <%= f.submit '更新',class: 'btn btn-success ml-2' %>
+                           <% end %>
+                        </td>
+                     </tr>
+                  <% end %>
+               </tbody>
+            </table>
          </div>
-         <div class="col-md-4">
-             <p>商品合計　　　<%= @order.order_items.sum(:taxin_price) %>円</p>
-             <p>送料　　　　　<%= @order.postage %>円</p>
-             <p>請求金額合計　<%= @order.order_items.sum(:taxin_price) + @order.postage %>円</p>
+         <div class="col-md-4 d-flex align-items-end ">
+            <div class="ml-5">
+               <!--モデルに小計の計算の定義-->
+               <p>商品合計　　　<%= @order.subtotal.to_s(:delimited) %>円</p>
+               <p>送料　　　　　<%= @order.postage %>円</p>
+               <!--コントローラで合計金額の定義-->
+               <p>請求金額合計　<%= @order.total_price.to_s(:delimited) %>円</p>
+            </div>
          </div>
-     </div>
+      </div>
 </div>
