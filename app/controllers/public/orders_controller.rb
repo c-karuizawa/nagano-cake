@@ -97,8 +97,4 @@ class Public::OrdersController < ApplicationController
       @attr = params.require(:order).permit(:id, :name, :postal_code, :address, :payment, :customer_id, :total_price)
     end
 
-    def address_params
-      params.require(:order).permit(:postal_code, :address, :name)
-    end
-
 end
