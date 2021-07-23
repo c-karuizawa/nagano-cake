@@ -95,4 +95,5 @@ class Public::OrdersController < ApplicationController
     def permit_params
       @attr = params.require(:order).permit(:id, :name, :postal_code, :address, :payment, :customer_id, :total_price)
     end
+
 end
